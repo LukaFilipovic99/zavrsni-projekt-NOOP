@@ -1,10 +1,15 @@
 package com.lukafilipovic.AlfaRomeoCarConfigurator.view;
 
+import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.UserController;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 /**
  * Sign up frame.
@@ -28,6 +33,7 @@ public class SignUpFrame extends JFrame {
     private JButton signUpBtn;
     private JLabel logInLbl;
     private JButton logInBtn;
+    private UserController userController;
 
     public SignUpFrame() {
         super("Alfa Romeo Konfigurator - Registracija");
@@ -38,6 +44,7 @@ public class SignUpFrame extends JFrame {
         initComps();
         initLayout();
         setVisible(true);
+        activatePanel();
     }
 
     private void initComps() {
@@ -71,6 +78,8 @@ public class SignUpFrame extends JFrame {
         signUpBtn.setFont(font);
         logInLbl=new JLabel("Imate račun? Logirajte se ovdje!");
         logInBtn=new JButton("Logiraj se");
+
+        userController=new UserController();
     }
 
     private void initLayout() {
@@ -139,6 +148,27 @@ public class SignUpFrame extends JFrame {
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.insets = new Insets(20, 10, 0, 0);
         add(logInBtn, gbc);
+    }
+
+    private void activatePanel(){
+        signUpBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                User user=new User();
+                user.setFirstName(firstNameTxt.getText());
+                user.setLastName(lastNameTxt.getText());
+                user.setEmail(emailTxt.getText());
+                user.setUsername(usernameTxt.getText());
+                user.setPassword(passwordTxt.getText());
+                try {
+                    String message=userController.saveUser(user);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                dispose();
+                new LogInFrame();
+            }
+        });
     }
 
 }
