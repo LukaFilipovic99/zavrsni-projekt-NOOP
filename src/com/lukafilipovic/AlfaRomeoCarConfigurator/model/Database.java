@@ -10,11 +10,10 @@ public class Database {
 
     /**
      * Method used for connecting to the database.
-     * Source: Materials from my collage class: Napredno objektno programiranje.
+     * Source: Materials from the collage class: Napredno objektno programiranje.
      *
      * @throws SQLException
      */
-
     private void connect() throws SQLException {
         System.out.println("Connecting to database...");
 
@@ -34,7 +33,7 @@ public class Database {
 
     /**
      * Method used for disconnecting to the database.
-     * Source: Materials from my collage class: Napredno objektno programiranje.
+     * Source: Materials from the collage class: Napredno objektno programiranje.
      *
      * @throws SQLException
      */
@@ -43,7 +42,12 @@ public class Database {
         System.out.println("Disconnected from DB...");
     }
 
-
+    /**
+     * Saves user to the database.
+     *
+     * @param user
+     * @throws SQLException
+     */
     public void saveUserToDB(User user) throws SQLException {
         connect();
         if (con != null) {
@@ -63,6 +67,14 @@ public class Database {
         disconnect();
     }
 
+    /**
+     * Checks if user with username already exists in database.
+     *
+     * @param user
+     * @return true if exists and false if does not.
+     * @throws SQLException
+     */
+
     public boolean ifUserWithUsernameExists(User user) throws SQLException {
         connect();
         PreparedStatement statement = con.prepareStatement
@@ -72,12 +84,19 @@ public class Database {
         if (resultSet.next()) {
             disconnect();
             return true;
-        }
-        else{
+        } else {
             disconnect();
             return false;
         }
     }
+
+    /**
+     * Checks if user with email already exists in database.
+     *
+     * @param user
+     * @return true if exists and false if does not.
+     * @throws SQLException
+     */
 
     public boolean ifUserWithEmailExists(User user) throws SQLException {
         connect();
@@ -88,8 +107,7 @@ public class Database {
         if (resultSet.next()) {
             disconnect();
             return true;
-        }
-        else{
+        } else {
             disconnect();
             return false;
         }

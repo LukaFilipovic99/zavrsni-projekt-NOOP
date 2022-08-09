@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 /**
  * Sign up frame.
@@ -49,7 +50,7 @@ public class SignUpFrame extends JFrame {
 
     private void initComps() {
         Font font = new Font("Calibri", Font.BOLD, 18);
-        Font font1= new Font("Calibri", Font.PLAIN, 18);
+        Font font1 = new Font("Calibri", Font.PLAIN, 18);
         firstNameLbl = new JLabel("Ime: ");
         firstNameLbl.setFont(font);
         firstNameTxt = new JTextField(15);
@@ -76,10 +77,10 @@ public class SignUpFrame extends JFrame {
         passwordRepeatTxt.setFont(font1);
         signUpBtn = new JButton("Registriraj se");
         signUpBtn.setFont(font);
-        logInLbl=new JLabel("Imate račun? Logirajte se ovdje!");
-        logInBtn=new JButton("Logiraj se");
+        logInLbl = new JLabel("Imate račun? Logirajte se ovdje!");
+        logInBtn = new JButton("Logiraj se");
 
-        userController=new UserController();
+        userController = new UserController();
     }
 
     private void initLayout() {
@@ -150,25 +151,76 @@ public class SignUpFrame extends JFrame {
         add(logInBtn, gbc);
     }
 
-    private void activatePanel(){
+    private void activatePanel() {
         signUpBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                User user=new User();
-                user.setFirstName(firstNameTxt.getText());
-                user.setLastName(lastNameTxt.getText());
-                user.setEmail(emailTxt.getText());
-                user.setUsername(usernameTxt.getText());
-                user.setPassword(passwordTxt.getText());
-                try {
-                    String message=userController.saveUser(user);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                boolean success = false;
+                if (isValidated()) {
+                    User user = createUser();
+                    try {
+                        String message = userController.saveUser(user);
+                        if (message == "Registracija uspješna!") success = true;
+                        JOptionPane.showMessageDialog(new Frame(), message, "Registracija", JOptionPane.PLAIN_MESSAGE);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
                 }
-                dispose();
-                new LogInFrame();
+                if (success) {
+                    dispose();
+                    new LogInFrame();
+                }
             }
         });
+    }
+
+    /**
+     * Creates user object.
+     *
+     * @return user object.
+     */
+    private User createUser() {
+        User user = new User();
+        user.setFirstName(firstNameTxt.getText());
+        user.setLastName(lastNameTxt.getText());
+        user.setUsername(usernameTxt.getText());
+        user.setEmail(emailTxt.getText());
+        user.setPassword(String.valueOf(passwordTxt.getPassword()));
+        return user;
+    }
+
+    /**
+     * Checks if all arrays in registration form are correctly filled.
+     *
+     * @return false if they are not and true if they are.
+     */
+    private boolean isValidated() {
+        if (firstNameTxt.getText().isBlank()) {
+            JOptionPane.showMessageDialog
+                    (new Frame(), "Ime ne smije biti prazno.", "Registracija", JOptionPane.PLAIN_MESSAGE);
+            return false;
+        }
+        if (lastNameTxt.getText().isBlank()) {
+            JOptionPane.showMessageDialog
+                    (new Frame(), "Prezime ne smije biti prazno.", "Registracija", JOptionPane.PLAIN_MESSAGE);
+            return false;
+        } else if (usernameTxt.getText().length() < 6) {
+            JOptionPane.showMessageDialog
+                    (new Frame(), "Korisničko ime ne smije biti prazno i mora sadržavati minimalno 6 znakova.", "Registracija", JOptionPane.PLAIN_MESSAGE);
+            return false;
+        } else if (!emailTxt.getText().contains("@")) {
+            JOptionPane.showMessageDialog
+                    (new Frame(), "Molimo unesite e-mail u ispravnom formatu.", "Registracija", JOptionPane.PLAIN_MESSAGE);
+            return false;
+        } else if (passwordTxt.getPassword().length < 6) {
+            JOptionPane.showMessageDialog
+                    (new Frame(), "Morate unijeti lozinku koja sadrži minimalno 6 znakova.", "Registracija", JOptionPane.PLAIN_MESSAGE);
+            return false;
+        } else if (!Arrays.equals(passwordRepeatTxt.getPassword(), passwordTxt.getPassword())) {
+            JOptionPane.showMessageDialog
+                    (new Frame(), "Lozinke se ne podudaraju.", "Registracija", JOptionPane.PLAIN_MESSAGE);
+            return false;
+        } else return true;
     }
 
 }
