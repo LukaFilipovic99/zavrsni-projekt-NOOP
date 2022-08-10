@@ -23,8 +23,6 @@ public class SignUpFrame extends JFrame {
     private JTextField firstNameTxt;
     private JLabel lastNameLbl;
     private JTextField lastNameTxt;
-    private JLabel usernameLbl;
-    private JTextField usernameTxt;
     private JLabel emailLbl;
     private JTextField emailTxt;
     private JLabel passwordLbl;
@@ -49,8 +47,8 @@ public class SignUpFrame extends JFrame {
     }
 
     private void initComps() {
-        Font font = new Font("Calibri", Font.BOLD, 18);
-        Font font1 = new Font("Calibri", Font.PLAIN, 18);
+        Font font = new Font("Arial", Font.BOLD, 18);
+        Font font1 = new Font("Arial", Font.PLAIN, 18);
         firstNameLbl = new JLabel("Ime: ");
         firstNameLbl.setFont(font);
         firstNameTxt = new JTextField(15);
@@ -59,10 +57,6 @@ public class SignUpFrame extends JFrame {
         lastNameLbl.setFont(font);
         lastNameTxt = new JTextField(15);
         lastNameTxt.setFont(font1);
-        usernameLbl = new JLabel("Korisničko ime: ");
-        usernameLbl.setFont(font);
-        usernameTxt = new JTextField(15);
-        usernameTxt.setFont(font1);
         emailLbl = new JLabel("E-mail: ");
         emailLbl.setFont(font);
         emailTxt = new JTextField(25);
@@ -107,21 +101,13 @@ public class SignUpFrame extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.CENTER;
-        add(usernameLbl, gbc);
-        gbc.gridx = 1;
-        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
-        add(usernameTxt, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.anchor = GridBagConstraints.CENTER;
         add(emailLbl, gbc);
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         add(emailTxt, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.CENTER;
         add(passwordLbl, gbc);
         gbc.gridx = 1;
@@ -129,7 +115,7 @@ public class SignUpFrame extends JFrame {
         add(passwordTxt, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 4;
         gbc.anchor = GridBagConstraints.CENTER;
         add(passwordRepeatLbl, gbc);
         gbc.gridx = 1;
@@ -172,6 +158,13 @@ public class SignUpFrame extends JFrame {
                 }
             }
         });
+        logInBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new LogInFrame();
+            }
+        });
     }
 
     /**
@@ -183,7 +176,6 @@ public class SignUpFrame extends JFrame {
         User user = new User();
         user.setFirstName(firstNameTxt.getText());
         user.setLastName(lastNameTxt.getText());
-        user.setUsername(usernameTxt.getText());
         user.setEmail(emailTxt.getText());
         user.setPassword(String.valueOf(passwordTxt.getPassword()));
         return user;
@@ -203,10 +195,6 @@ public class SignUpFrame extends JFrame {
         if (lastNameTxt.getText().isBlank()) {
             JOptionPane.showMessageDialog
                     (new Frame(), "Prezime ne smije biti prazno.", "Registracija", JOptionPane.PLAIN_MESSAGE);
-            return false;
-        } else if (usernameTxt.getText().length() < 6) {
-            JOptionPane.showMessageDialog
-                    (new Frame(), "Korisničko ime ne smije biti prazno i mora sadržavati minimalno 6 znakova.", "Registracija", JOptionPane.PLAIN_MESSAGE);
             return false;
         } else if (!emailTxt.getText().contains("@")) {
             JOptionPane.showMessageDialog

@@ -18,21 +18,20 @@ public class UserController {
     }
 
     /**
-     * Checks if user with username or email already exists in database.
-     * If does return message to select another username/email and if does not saves user to the database.
+     * Checks if user with email already exists in database. If does return message to select another email and if does not saves user to the database.
      *
      * @param user
      * @return message.
      * @throws SQLException
      */
     public String saveUser(User user) throws SQLException {
-        if (database.ifUserWithUsernameExists(user))
-            return "Korisničko ime je zauzeto! Molimo odaberite drugo korisničko ime.";
-        else if (database.ifUserWithEmailExists(user))
+        if (database.ifUserWithEmailExists(user))
             return "Korisnik s tom e-mail adresom već postoji! Molimo unesite drugu e-mail adresu.";
         else {
             database.saveUserToDB(user);
             return "Registracija uspješna!";
         }
     }
+
+
 }

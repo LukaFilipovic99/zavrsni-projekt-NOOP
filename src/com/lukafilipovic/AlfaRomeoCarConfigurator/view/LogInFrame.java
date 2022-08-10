@@ -1,5 +1,6 @@
 package com.lukafilipovic.AlfaRomeoCarConfigurator.view;
 
+import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.UserController;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,13 +16,14 @@ import java.awt.event.ActionListener;
 @Getter
 @Setter
 public class LogInFrame extends JFrame {
-    private JLabel usernameLbl;
+    private JLabel emailLbl;
     private JTextField usernameTxt;
     private JLabel passwordLbl;
     private JPasswordField passwordTxt;
     private JButton logInBtn;
     private JLabel signUpLbl;
     private JButton signUpBtn;
+    private UserController userController;
 
     public LogInFrame() {
         super("Alfa Romeo Konfigurator");
@@ -36,9 +38,9 @@ public class LogInFrame extends JFrame {
     }
 
     private void initComps() {
-        Font font=new Font("Calibri", Font.BOLD, 24);
-        usernameLbl = new JLabel("Korisničko ime: ");
-        usernameLbl.setFont(font);
+        Font font=new Font("Arial", Font.BOLD, 24);
+        emailLbl = new JLabel("Korisničko ime: ");
+        emailLbl.setFont(font);
         usernameTxt = new JTextField(15);
         usernameTxt.setFont(font);
         passwordLbl = new JLabel("Lozinka: ");
@@ -49,6 +51,7 @@ public class LogInFrame extends JFrame {
         logInBtn.setFont(font);
         signUpLbl = new JLabel("Nemate korisnički račun? Registrirajte se ovdje.");
         signUpBtn = new JButton("Registracija");
+        userController=new UserController();
     }
 
     private void initLayout() {
@@ -59,7 +62,7 @@ public class LogInFrame extends JFrame {
         gbc.gridy = 0;
         gbc.insets = new Insets(20, 10, 0, 0);
         gbc.anchor = GridBagConstraints.CENTER;
-        add(usernameLbl, gbc);
+        add(emailLbl, gbc);
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         add(usernameTxt, gbc);
@@ -87,6 +90,12 @@ public class LogInFrame extends JFrame {
     }
 
     private void activateFrame(){
+        logInBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
         signUpBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

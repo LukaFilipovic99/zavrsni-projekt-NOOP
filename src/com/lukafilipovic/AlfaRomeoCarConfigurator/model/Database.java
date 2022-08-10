@@ -53,12 +53,11 @@ public class Database {
         if (con != null) {
             try {
                 PreparedStatement statement = con.prepareStatement
-                        ("INSERT INTO users (first_name, last_name, username, email, password) VALUES (?, ?, ?, ?, ?)");
+                        ("INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)");
                 statement.setString(1, user.getFirstName());
                 statement.setString(2, user.getLastName());
-                statement.setString(3, user.getUsername());
-                statement.setString(4, user.getEmail());
-                statement.setString(5, user.getPassword());
+                statement.setString(3, user.getEmail());
+                statement.setString(4, user.getPassword());
                 statement.executeUpdate();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -67,28 +66,6 @@ public class Database {
         disconnect();
     }
 
-    /**
-     * Checks if user with username already exists in database.
-     *
-     * @param user
-     * @return true if exists and false if does not.
-     * @throws SQLException
-     */
-
-    public boolean ifUserWithUsernameExists(User user) throws SQLException {
-        connect();
-        PreparedStatement statement = con.prepareStatement
-                ("SELECT * FROM users WHERE username = ?");
-        statement.setString(1, user.getUsername());
-        ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            disconnect();
-            return true;
-        } else {
-            disconnect();
-            return false;
-        }
-    }
 
     /**
      * Checks if user with email already exists in database.
