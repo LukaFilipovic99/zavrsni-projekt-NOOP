@@ -1,6 +1,7 @@
 package com.lukafilipovic.AlfaRomeoCarConfigurator.view;
 
 import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.UserController;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 /**
  * Log in frame.
@@ -17,7 +19,7 @@ import java.awt.event.ActionListener;
 @Setter
 public class LogInFrame extends JFrame {
     private JLabel emailLbl;
-    private JTextField usernameTxt;
+    private JTextField emailTxt;
     private JLabel passwordLbl;
     private JPasswordField passwordTxt;
     private JButton logInBtn;
@@ -38,20 +40,20 @@ public class LogInFrame extends JFrame {
     }
 
     private void initComps() {
-        Font font=new Font("Arial", Font.BOLD, 24);
-        emailLbl = new JLabel("Korisničko ime: ");
+        Font font = new Font("Arial", Font.BOLD, 24);
+        emailLbl = new JLabel("E-mail: ");
         emailLbl.setFont(font);
-        usernameTxt = new JTextField(15);
-        usernameTxt.setFont(font);
+        emailTxt = new JTextField(15);
+        emailTxt.setFont(font);
         passwordLbl = new JLabel("Lozinka: ");
         passwordLbl.setFont(font);
         passwordTxt = new JPasswordField(15);
         passwordTxt.setFont(font);
-        logInBtn = new JButton("Logirajte se");
+        logInBtn = new JButton("Prijavi se");
         logInBtn.setFont(font);
         signUpLbl = new JLabel("Nemate korisnički račun? Registrirajte se ovdje.");
         signUpBtn = new JButton("Registracija");
-        userController=new UserController();
+        userController = new UserController();
     }
 
     private void initLayout() {
@@ -65,7 +67,7 @@ public class LogInFrame extends JFrame {
         add(emailLbl, gbc);
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
-        add(usernameTxt, gbc);
+        add(emailTxt, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -89,10 +91,28 @@ public class LogInFrame extends JFrame {
         add(signUpBtn, gbc);
     }
 
-    private void activateFrame(){
+    private void activateFrame() {
         logInBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                boolean success = false;
+                User user=new User();
+                if (isValidated()){
+                    try {
+                        String message= userController.logIn(emailTxt.getText(), String.valueOf(passwordTxt.getPassword()));
+                        if (message=="Prijava uspješna.") success=true;
+                        user=userController.getUser();
+                        JOptionPane.showMessageDialog(new Frame(), message, "Prijava", JOptionPane.PLAIN_MESSAGE);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                }
+                if (success){
+                    HomeFrame homeFrame=new HomeFrame();
+                    homeFrame.setUser(user);
+                    userController.setUserNameOnNavPanel(homeFrame.getNavPanel(), user);
+                    dispose();
+                }
 
             }
         });
@@ -105,4 +125,11 @@ public class LogInFrame extends JFrame {
         });
     }
 
+    private boolean isValidated() {
+        if (!emailTxt.getText().contains("@")) {
+            JOptionPane.showMessageDialog
+                    (new Frame(), "Molimo unesite e-mail u ispravnom formatu.", "Prijava", JOptionPane.PLAIN_MESSAGE);
+            return false;
+        } else return true;
+    }
 }

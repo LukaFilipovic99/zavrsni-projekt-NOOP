@@ -1,5 +1,6 @@
 package com.lukafilipovic.AlfaRomeoCarConfigurator.view;
 
+import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.UserController;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,16 +34,19 @@ public class NavPanel extends JPanel{
         backToHomepageBtn.setFont(fontBtn);
         backToHomepageBtn.setBackground(Color.GRAY);
         backToHomepageBtn.setForeground(Color.WHITE);
-        userName=new JLabel("Luka Filipović");
+        userName=new JLabel();
         userName.setFont(font);
         userName.setForeground(Color.WHITE);
     }
 
     private void initLayout() {
-
         setLayout(new FlowLayout());
         add(userName);
         add(backToHomepageBtn);
         add(logOutBtn);
+    }
+
+    private void activatePanel(){
+
     }
 }

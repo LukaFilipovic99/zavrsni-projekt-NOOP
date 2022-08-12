@@ -71,8 +71,8 @@ public class SignUpFrame extends JFrame {
         passwordRepeatTxt.setFont(font1);
         signUpBtn = new JButton("Registriraj se");
         signUpBtn.setFont(font);
-        logInLbl = new JLabel("Imate račun? Logirajte se ovdje!");
-        logInBtn = new JButton("Logiraj se");
+        logInLbl = new JLabel("Imate račun? Prijavite se ovdje!");
+        logInBtn = new JButton("Prijavi se");
 
         userController = new UserController();
     }

@@ -1,5 +1,6 @@
 package com.lukafilipovic.AlfaRomeoCarConfigurator.view;
 
+import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.UserController;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,8 @@ public class HomeFrame extends JFrame {
     private JLabel viewConfiguredCarsLbl;
     private JButton viewConfiguredCarsBtn;
     private JPanel selectPanel;
-    private JPanel navPanel;
+    private NavPanel navPanel;
+    private User user;
 
     public HomeFrame(){
         super("Alfa Romeo Konfigurator");

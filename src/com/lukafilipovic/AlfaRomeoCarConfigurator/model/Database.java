@@ -75,11 +75,11 @@ public class Database {
      * @throws SQLException
      */
 
-    public boolean ifUserWithEmailExists(User user) throws SQLException {
+    public boolean ifUserWithEmailExists(String email) throws SQLException {
         connect();
         PreparedStatement statement = con.prepareStatement
                 ("SELECT * FROM users WHERE email = ?");
-        statement.setString(1, user.getEmail());
+        statement.setString(1, email);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
             disconnect();
@@ -88,6 +88,42 @@ public class Database {
             disconnect();
             return false;
         }
+    }
+
+    public boolean areEmailAndPasswordMatching(String email, String password) throws SQLException {
+        connect();
+        PreparedStatement statement = con.prepareStatement
+                ("SELECT * FROM users WHERE email=? AND password=?");
+        statement.setString(1, email);
+        statement.setString(2, password);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            disconnect();
+            return true;
+        } else {
+            disconnect();
+            return false;
+        }
+
+    }
+
+    public User loadUserFromDB(String email, String password) throws SQLException {
+        User user = new User();
+        connect();
+        PreparedStatement statement = con.prepareStatement
+                ("SELECT * FROM users WHERE email=? AND password=?");
+        statement.setString(1, email);
+        statement.setString(2, password);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            user.setId(resultSet.getLong(1));
+            user.setFirstName(resultSet.getString(2));
+            user.setLastName(resultSet.getString(3));
+            user.setEmail(resultSet.getString(4));
+            user.setPassword(resultSet.getString(5));
+        }
+        disconnect();
+        return user;
     }
 
 }
