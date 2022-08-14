@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @Getter
 @Setter
@@ -18,6 +20,7 @@ public class HomeFrame extends JFrame {
     private JPanel selectPanel;
     private NavPanel navPanel;
     private User user;
+    private UserController userController;
 
     public HomeFrame(){
         super("Alfa Romeo Konfigurator");
@@ -31,11 +34,12 @@ public class HomeFrame extends JFrame {
         add(navPanel,BorderLayout.NORTH);
         add(selectPanel, BorderLayout.CENTER);
         setVisible(true);
+        activatePanel();
     }
 
     private void initComps(){
         Font font=new Font("Arial", Font.PLAIN, 20);
-        Font fontBtn=new Font("Arial", Font.BOLD, 30);
+        Font fontBtn=new Font("Arial", Font.BOLD, 35);
         configureNewCarLbl=new JLabel("<html><p>Konfigurirajte vaš<br>novi Alfa Romeo</p></html>");
         configureNewCarLbl.setFont(font);
         configureNewCarBtn=new JButton(">");
@@ -50,6 +54,7 @@ public class HomeFrame extends JFrame {
         viewConfiguredCarsBtn.setForeground(Color.WHITE);
         selectPanel=new JPanel();
         navPanel=new NavPanel();
+        userController=new UserController();
     }
 
     private void initSelectPanelLayout(){
@@ -72,5 +77,15 @@ public class HomeFrame extends JFrame {
         selectPanel.add(viewConfiguredCarsBtn,gbc);
     }
 
+    private void activatePanel(){
+        configureNewCarBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SelectCarFrame selectCarFrame=new SelectCarFrame();
+                selectCarFrame.setUser(user);
+                userController.setUserNameOnNavPanel(selectCarFrame.getNavPanel(), user);
+            }
+        });
+    }
 
 }

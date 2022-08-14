@@ -24,8 +24,8 @@ public class NavPanel extends JPanel{
 
     private void initComps(){
         setBackground(Color.DARK_GRAY);
-        Font font=new Font("Arial", Font.PLAIN, 20);
-        Font fontBtn=new Font("Arial", Font.BOLD, 20);
+        Font font=new Font("Arial", Font.PLAIN, 28);
+        Font fontBtn=new Font("Arial", Font.BOLD, 28);
         logOutBtn=new JButton("Odjavi se");
         logOutBtn.setFont(fontBtn);
         logOutBtn.setBackground(Color.GRAY);
