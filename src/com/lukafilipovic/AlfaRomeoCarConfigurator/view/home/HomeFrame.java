@@ -2,6 +2,7 @@ package com.lukafilipovic.AlfaRomeoCarConfigurator.view.home;
 
 import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.Controller;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.view.authentification.LogInFrame;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.common.NavPanel;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.configure_car.SelectCarModelFrame;
 import lombok.Getter;
@@ -37,6 +38,7 @@ public class HomeFrame extends JFrame {
         add(selectPanel, BorderLayout.CENTER);
         setVisible(true);
         activatePanel();
+        activateNavPanel();
     }
 
     private void initComps(){
@@ -87,6 +89,19 @@ public class HomeFrame extends JFrame {
                 selectCarModelFrame.setUser(user);
                 controller.setUserNameOnNavPanel(selectCarModelFrame.getNavPanel(), user);
             }
+        });
+    }
+
+    private void activateNavPanel() {
+        navPanel.getBackToHomepageBtn().addActionListener(e -> {
+            HomeFrame homeFrame = new HomeFrame();
+            homeFrame.setUser(user);
+            controller.setUserNameOnNavPanel(homeFrame.getNavPanel(), user);
+            dispose();
+        });
+        navPanel.getLogOutBtn().addActionListener(e -> {
+            LogInFrame logInFrame = new LogInFrame();
+            dispose();
         });
     }
 

@@ -5,9 +5,11 @@ import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.*;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.configure_car.EquipmentFrame;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.common.NavPanel;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.view.configure_car.FinishConfigurationFrame;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.awt.*;
 import java.sql.SQLException;
 
 import java.util.List;
@@ -100,6 +102,10 @@ public class Controller {
         } while (database.ifCarIdExists(carId));
         database.saveCarToDB(carId, car, user.getId());
         return carId;
+    }
+
+    public void setAlfaCodeToFinishConfigurationFrame(FinishConfigurationFrame frame, String alfaCode){
+        frame.getAlfaCode().setText(alfaCode);
     }
 
     /**

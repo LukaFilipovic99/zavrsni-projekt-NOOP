@@ -6,8 +6,10 @@ import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.CarAbs;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.EngineDecoratedCar;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.GiuliaCar;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.StelvioCar;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.view.authentification.LogInFrame;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.common.NavPanel;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.common.PricePanel;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.view.home.HomeFrame;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -71,6 +73,7 @@ public class SelectCarModelFrame extends JFrame implements ItemListener {
         add(pricePanel, BorderLayout.SOUTH);
         setVisible(true);
         activateFrame();
+        activateNavPanel();
     }
 
     private void initComps() {
@@ -227,6 +230,19 @@ public class SelectCarModelFrame extends JFrame implements ItemListener {
                 controller.setPriceToEquipmentFramePricePanel(equipmentFrame, price);
                 controller.setUserNameOnNavPanel(equipmentFrame.getNavPanel(), user);
             }
+        });
+    }
+
+    private void activateNavPanel() {
+        navPanel.getBackToHomepageBtn().addActionListener(e -> {
+            HomeFrame homeFrame = new HomeFrame();
+            homeFrame.setUser(user);
+            controller.setUserNameOnNavPanel(homeFrame.getNavPanel(), user);
+            dispose();
+        });
+        navPanel.getLogOutBtn().addActionListener(e -> {
+            LogInFrame logInFrame = new LogInFrame();
+            dispose();
         });
     }
 }

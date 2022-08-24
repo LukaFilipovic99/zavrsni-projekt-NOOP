@@ -112,7 +112,6 @@ public class LogInFrame extends JFrame {
                     HomeFrame homeFrame=new HomeFrame();
                     homeFrame.setUser(user);
                     controller.setUserNameOnNavPanel(homeFrame.getNavPanel(), user);
-                    homeFrame.getNavPanel().setUser(user);
                     dispose();
                 }
 
