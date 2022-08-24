@@ -1,4 +1,4 @@
-package com.lukafilipovic.AlfaRomeoCarConfigurator.view;
+package com.lukafilipovic.AlfaRomeoCarConfigurator.view.common;
 
 import lombok.Getter;
 import lombok.Setter;

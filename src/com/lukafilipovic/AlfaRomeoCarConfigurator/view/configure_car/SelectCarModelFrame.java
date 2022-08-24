@@ -1,13 +1,21 @@
-package com.lukafilipovic.AlfaRomeoCarConfigurator.view;
+package com.lukafilipovic.AlfaRomeoCarConfigurator.view.configure_car;
 
-import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.UserController;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.Controller;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.CarAbs;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.EngineDecoratedCar;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.GiuliaCar;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.StelvioCar;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.view.common.NavPanel;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.view.common.PricePanel;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
@@ -18,7 +26,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class SelectCarFrame extends JFrame implements ItemListener {
+public class SelectCarModelFrame extends JFrame implements ItemListener {
     private final Map<String, Double> models = new LinkedHashMap<>(){{
         put("GIULIA", 255550.00);
         put("STELVIO", 318250.00);
@@ -41,14 +49,15 @@ public class SelectCarFrame extends JFrame implements ItemListener {
     private BufferedImage imageGiulia;
     private BufferedImage imageStelvio;
     private JButton submitButton;
-    private UserController userController;
+    private Controller controller;
     private User user;
     private PricePanel pricePanel;
     private double price;
     private double priceModel;
     private double priceEngine;
+    private CarAbs car;
 
-    public SelectCarFrame(){
+    public SelectCarModelFrame(){
         super("Alfa Romeo Konfigurator");
         setSize(1200, 600);
         setLocationRelativeTo(null);
@@ -61,6 +70,7 @@ public class SelectCarFrame extends JFrame implements ItemListener {
         add(carModelPanel, BorderLayout.CENTER);
         add(pricePanel, BorderLayout.SOUTH);
         setVisible(true);
+        activateFrame();
     }
 
     private void initComps() {
@@ -92,7 +102,7 @@ public class SelectCarFrame extends JFrame implements ItemListener {
             e.printStackTrace();
         }
         pictureLbl = new JLabel(new ImageIcon(imageGiulia));
-        userController=new UserController();
+        controller =new Controller();
         submitButton=new JButton("Dalje");
         submitButton.setFont(fontBtn);
         submitButton.setBackground(Color.DARK_GRAY);
@@ -149,8 +159,6 @@ public class SelectCarFrame extends JFrame implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        price=0.0;
-
         if (e.getSource() == selectCarModelCBox) {
             switch (selectCarModelCBox.getSelectedIndex()) {
                 case 0 -> {
@@ -191,7 +199,34 @@ public class SelectCarFrame extends JFrame implements ItemListener {
         pricePanel.getPriceLbl().setText(String.valueOf(price)+" kn");
     }
 
-    private void activatePanel(){
-
+    /**
+     * When submit button is pressed, a new Car object is created and than it is decorated with engine using controller.
+     */
+    private void activateFrame(){
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EngineDecoratedCar engineDecoratedCar;
+                switch (selectCarModelCBox.getSelectedIndex()){
+                    case 0 -> car=new GiuliaCar();
+                    case 1 -> car=new StelvioCar();
+                }
+                switch (selectEngineCBox.getSelectedIndex()){
+                    case 0 -> engineDecoratedCar=controller.addEngineToCar(car, "2.0 GME 200ks", engines.get("2.0 GME 200ks"));
+                    case 1 -> engineDecoratedCar=controller.addEngineToCar(car, "2.0 GME 280ks", engines.get("2.0 GME 280ks"));
+                    case 2 -> engineDecoratedCar=controller.addEngineToCar(car, "2.9 V6 BI-TURBO 510ks", engines.get("2.9 V6 BI-TURBO 510ks"));
+                    case 3 -> engineDecoratedCar=controller.addEngineToCar(car, "2.2 JTDm 180ks", engines.get("2.2 JTDm 180ks"));
+                    case 4 -> engineDecoratedCar=controller.addEngineToCar(car, "2.2 JTDm 210ks", engines.get("2.2 JTDm 210ks"));
+                    default -> throw new IllegalStateException("Unexpected value: " + selectEngineCBox.getSelectedIndex());
+                }
+                dispose();
+                EquipmentFrame equipmentFrame=new EquipmentFrame();
+                equipmentFrame.setPrice(price);
+                equipmentFrame.setUser(user);
+                equipmentFrame.setEngineDecoratedCar(engineDecoratedCar);
+                controller.setPriceToEquipmentFramePricePanel(equipmentFrame, price);
+                controller.setUserNameOnNavPanel(equipmentFrame.getNavPanel(), user);
+            }
+        });
     }
 }

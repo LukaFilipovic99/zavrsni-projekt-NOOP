@@ -1,7 +1,8 @@
-package com.lukafilipovic.AlfaRomeoCarConfigurator.view;
+package com.lukafilipovic.AlfaRomeoCarConfigurator.view.authentification;
 
-import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.UserController;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.Controller;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.view.home.HomeFrame;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +26,7 @@ public class LogInFrame extends JFrame {
     private JButton logInBtn;
     private JLabel signUpLbl;
     private JButton signUpBtn;
-    private UserController userController;
+    private Controller controller;
 
     public LogInFrame() {
         super("Alfa Romeo Konfigurator");
@@ -53,7 +54,7 @@ public class LogInFrame extends JFrame {
         logInBtn.setFont(font);
         signUpLbl = new JLabel("Nemate korisnički račun? Registrirajte se ovdje.");
         signUpBtn = new JButton("Registracija");
-        userController = new UserController();
+        controller = new Controller();
     }
 
     private void initLayout() {
@@ -99,9 +100,9 @@ public class LogInFrame extends JFrame {
                 User user=new User();
                 if (isValidated()){
                     try {
-                        String message= userController.logIn(emailTxt.getText(), String.valueOf(passwordTxt.getPassword()));
+                        String message= controller.logIn(emailTxt.getText(), String.valueOf(passwordTxt.getPassword()));
                         if (message=="Prijava uspješna.") success=true;
-                        user=userController.getUser();
+                        user= controller.getUser();
                         JOptionPane.showMessageDialog(new Frame(), message, "Prijava", JOptionPane.PLAIN_MESSAGE);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
@@ -110,7 +111,8 @@ public class LogInFrame extends JFrame {
                 if (success){
                     HomeFrame homeFrame=new HomeFrame();
                     homeFrame.setUser(user);
-                    userController.setUserNameOnNavPanel(homeFrame.getNavPanel(), user);
+                    controller.setUserNameOnNavPanel(homeFrame.getNavPanel(), user);
+                    homeFrame.getNavPanel().setUser(user);
                     dispose();
                 }
 

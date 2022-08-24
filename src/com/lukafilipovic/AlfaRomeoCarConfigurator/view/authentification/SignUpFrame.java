@@ -1,7 +1,7 @@
-package com.lukafilipovic.AlfaRomeoCarConfigurator.view;
+package com.lukafilipovic.AlfaRomeoCarConfigurator.view.authentification;
 
-import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.UserController;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.Controller;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,7 +32,7 @@ public class SignUpFrame extends JFrame {
     private JButton signUpBtn;
     private JLabel logInLbl;
     private JButton logInBtn;
-    private UserController userController;
+    private Controller controller;
 
     public SignUpFrame() {
         super("Alfa Romeo Konfigurator - Registracija");
@@ -74,7 +74,7 @@ public class SignUpFrame extends JFrame {
         logInLbl = new JLabel("Imate račun? Prijavite se ovdje!");
         logInBtn = new JButton("Prijavi se");
 
-        userController = new UserController();
+        controller = new Controller();
     }
 
     private void initLayout() {
@@ -145,7 +145,7 @@ public class SignUpFrame extends JFrame {
                 if (isValidated()) {
                     User user = createUser();
                     try {
-                        String message = userController.saveUser(user);
+                        String message = controller.saveUser(user);
                         if (message == "Registracija uspješna!") success = true;
                         JOptionPane.showMessageDialog(new Frame(), message, "Registracija", JOptionPane.PLAIN_MESSAGE);
                     } catch (SQLException throwables) {

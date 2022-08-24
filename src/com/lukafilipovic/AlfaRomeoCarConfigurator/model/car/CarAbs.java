@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public abstract class CarAbs {
     protected int id;
-    protected double cost;
+    protected double price;
     protected String description;
 
 }

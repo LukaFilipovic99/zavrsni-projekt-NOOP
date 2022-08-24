@@ -1,8 +1,6 @@
 package com.lukafilipovic.AlfaRomeoCarConfigurator;
 
-import com.lukafilipovic.AlfaRomeoCarConfigurator.view.HomeFrame;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.view.LogInFrame;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.view.SelectCarFrame;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.view.authentification.LogInFrame;
 
 public class App {
     public static void main(String[] args) {

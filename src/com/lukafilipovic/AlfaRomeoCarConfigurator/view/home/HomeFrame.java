@@ -1,7 +1,9 @@
-package com.lukafilipovic.AlfaRomeoCarConfigurator.view;
+package com.lukafilipovic.AlfaRomeoCarConfigurator.view.home;
 
-import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.UserController;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.Controller;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.view.common.NavPanel;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.view.configure_car.SelectCarModelFrame;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +22,7 @@ public class HomeFrame extends JFrame {
     private JPanel selectPanel;
     private NavPanel navPanel;
     private User user;
-    private UserController userController;
+    private Controller controller;
 
     public HomeFrame(){
         super("Alfa Romeo Konfigurator");
@@ -54,7 +56,7 @@ public class HomeFrame extends JFrame {
         viewConfiguredCarsBtn.setForeground(Color.WHITE);
         selectPanel=new JPanel();
         navPanel=new NavPanel();
-        userController=new UserController();
+        controller =new Controller();
     }
 
     private void initSelectPanelLayout(){
@@ -81,9 +83,9 @@ public class HomeFrame extends JFrame {
         configureNewCarBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SelectCarFrame selectCarFrame=new SelectCarFrame();
-                selectCarFrame.setUser(user);
-                userController.setUserNameOnNavPanel(selectCarFrame.getNavPanel(), user);
+                SelectCarModelFrame selectCarModelFrame=new SelectCarModelFrame();
+                selectCarModelFrame.setUser(user);
+                controller.setUserNameOnNavPanel(selectCarModelFrame.getNavPanel(), user);
             }
         });
     }

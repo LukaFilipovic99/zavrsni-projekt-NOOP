@@ -1,4 +1,7 @@
-package com.lukafilipovic.AlfaRomeoCarConfigurator.model;
+package com.lukafilipovic.AlfaRomeoCarConfigurator.model.Database;
+
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.CarAbs;
 
 import java.sql.*;
 
@@ -126,4 +129,52 @@ public class Database {
         return user;
     }
 
+    /**
+     * Checks if id already exists in cars table.
+     *
+     * @param carId
+     * @return true if exists, false if does not.
+     * @throws SQLException
+     */
+
+    public boolean ifCarIdExists(String carId) throws SQLException {
+        connect();
+        PreparedStatement statement = con.prepareStatement
+                ("SELECT * FROM cars WHERE id = ?");
+        statement.setString(1, carId);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            disconnect();
+            return true;
+        } else {
+            disconnect();
+            return false;
+        }
+    }
+
+    /**
+     * Saves car to the database.
+     *
+     * @param carId  generated car id.
+     * @param car    configured car.
+     * @param userId references user which configured car.
+     * @throws SQLException
+     */
+    public void saveCarToDB(String carId, CarAbs car, Long userId) throws SQLException {
+        connect();
+        if (con != null) {
+            try {
+                PreparedStatement statement = con.prepareStatement
+                        ("INSERT INTO cars (id, description, price, user_id) VALUES (?, ?, ?, ?)");
+                statement.setString(1, carId);
+                statement.setString(2, car.getDescription());
+                statement.setDouble(3, car.getPrice());
+                statement.setLong(4, userId);
+                statement.executeUpdate();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        disconnect();
+    }
 }

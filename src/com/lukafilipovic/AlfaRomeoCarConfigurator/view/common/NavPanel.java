@@ -1,7 +1,6 @@
-package com.lukafilipovic.AlfaRomeoCarConfigurator.view;
+package com.lukafilipovic.AlfaRomeoCarConfigurator.view.common;
 
-import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.UserController;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,9 +43,5 @@ public class NavPanel extends JPanel{
         add(userName);
         add(backToHomepageBtn);
         add(logOutBtn);
-    }
-
-    private void activatePanel(){
-
     }
 }
