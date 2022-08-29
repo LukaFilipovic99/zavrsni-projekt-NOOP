@@ -5,13 +5,13 @@ import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.authentification.LogInFrame;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.common.NavPanel;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.configure_car.SelectCarModelFrame;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.view.view_cars.ViewConfiguredCarsFrame;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 @Getter
 @Setter
@@ -81,14 +81,23 @@ public class HomeFrame extends JFrame {
         selectPanel.add(viewConfiguredCarsBtn,gbc);
     }
 
+    /**
+     * By clicking on one of the buttons, user can navigate through app. Clicking on configureNewCarBtn sends user to the SelectCarModelFrame
+     * where he can start configuring his car and clicking on viewConfiguredCarsBtn sends user to the ViewConfiguredCarsFrame where he can see
+     * already configured cars.
+     */
     private void activatePanel(){
-        configureNewCarBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SelectCarModelFrame selectCarModelFrame=new SelectCarModelFrame();
-                selectCarModelFrame.setUser(user);
-                controller.setUserNameOnNavPanel(selectCarModelFrame.getNavPanel(), user);
-            }
+        configureNewCarBtn.addActionListener(e -> {
+            SelectCarModelFrame selectCarModelFrame=new SelectCarModelFrame();
+            selectCarModelFrame.setUser(user);
+            controller.setUserNameOnNavPanel(selectCarModelFrame.getNavPanel(), user);
+            dispose();
+        });
+        viewConfiguredCarsBtn.addActionListener(e -> {
+            ViewConfiguredCarsFrame viewConfiguredCarsFrame=new ViewConfiguredCarsFrame();
+            viewConfiguredCarsFrame.setUser(user);
+            controller.setUserNameOnNavPanel(viewConfiguredCarsFrame.getNavPanel(), user);
+            dispose();
         });
     }
 

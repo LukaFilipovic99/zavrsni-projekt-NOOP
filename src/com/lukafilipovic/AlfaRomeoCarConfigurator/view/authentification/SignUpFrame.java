@@ -33,6 +33,7 @@ public class SignUpFrame extends JFrame {
     private JLabel logInLbl;
     private JButton logInBtn;
     private Controller controller;
+    private User user;
 
     public SignUpFrame() {
         super("Alfa Romeo Konfigurator - Registracija");
@@ -143,7 +144,7 @@ public class SignUpFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 boolean success = false;
                 if (isValidated()) {
-                    User user = createUser();
+                    user = createUser();
                     try {
                         String message = controller.saveUser(user);
                         if (message == "Registracija uspješna!") success = true;

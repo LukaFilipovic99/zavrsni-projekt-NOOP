@@ -27,6 +27,7 @@ public class LogInFrame extends JFrame {
     private JLabel signUpLbl;
     private JButton signUpBtn;
     private Controller controller;
+    private User user;
 
     public LogInFrame() {
         super("Alfa Romeo Konfigurator");
@@ -97,7 +98,7 @@ public class LogInFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 boolean success = false;
-                User user=new User();
+                user=new User();
                 if (isValidated()){
                     try {
                         String message= controller.logIn(emailTxt.getText(), String.valueOf(passwordTxt.getPassword()));
