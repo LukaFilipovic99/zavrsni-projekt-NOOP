@@ -15,7 +15,6 @@ import java.util.Arrays;
 /**
  * Sign up frame.
  */
-
 @Getter
 @Setter
 public class SignUpFrame extends JFrame {
@@ -138,6 +137,10 @@ public class SignUpFrame extends JFrame {
         add(logInBtn, gbc);
     }
 
+    /**
+     * Clicking signUpBtn saves user to the database using Controller and sends user to the LogInFrame.
+     * Clicking logInBtn sends user to LogInFrame.
+     */
     private void activatePanel() {
         signUpBtn.addActionListener(new ActionListener() {
             @Override

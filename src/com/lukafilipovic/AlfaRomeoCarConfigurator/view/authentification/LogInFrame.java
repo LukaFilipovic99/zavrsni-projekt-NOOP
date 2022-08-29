@@ -93,6 +93,9 @@ public class LogInFrame extends JFrame {
         add(signUpBtn, gbc);
     }
 
+    /**
+     * Pressing the signInBtn sends user on the HomeFrame (if logging in is successful)  and pressing on signUpBtn sends usr to the SignUpFrame.
+     */
     private void activateFrame() {
         logInBtn.addActionListener(new ActionListener() {
             @Override
@@ -127,6 +130,10 @@ public class LogInFrame extends JFrame {
         });
     }
 
+    /**
+     * Checks if e-mail is in right format.
+     * @return true if it is, false if it is not.
+     */
     private boolean isValidated() {
         if (!emailTxt.getText().contains("@")) {
             JOptionPane.showMessageDialog

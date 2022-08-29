@@ -9,6 +9,9 @@ import lombok.Setter;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Frame where user can see cars he configured.
+ */
 @Getter
 @Setter
 public class ViewConfiguredCarsFrame extends JFrame {

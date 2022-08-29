@@ -6,6 +6,9 @@ import lombok.Setter;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel which shows on SelectCarModelFrame and EquipmentFrame. Shows current price of car which is being configured.
+ */
 @Getter
 @Setter
 public class PricePanel extends JPanel {
