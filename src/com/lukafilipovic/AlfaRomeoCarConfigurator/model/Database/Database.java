@@ -25,8 +25,8 @@ public class Database {
             // load driver
             Class.forName("com.mysql.cj.jdbc.Driver");
             // obtain connection
-            String url = "jdbc:mysql://localhost:3306/noop_project"; // your database
-            String user = "root"; // your user name
+            String url = "jdbc:mysql://db4free.net:3306/noop_project"; // your database
+            String user = "lfilipovic"; // your user name
             String password = "database99"; // your password
             con = DriverManager.getConnection(url, user, password);
             System.out.println("Connected to -> " + con.toString());
@@ -211,7 +211,7 @@ public class Database {
                     String id = resultSet.getString(1);
                     String description = resultSet.getString(2);
                     Double price = resultSet.getDouble(3);
-                    carStr = "Alfa kod: " + id + " | CIJENA: " + price + "kn\n---------------------------------------------------------\n" +
+                    carStr = "Alfa kod: " + id + " | CIJENA: " + price + "kn\n.....................................................................\n" +
                             description;
                     carsStr.append(carStr).append("___________________________________________________________________________________________________________________________________________________\n \n");
                 }
@@ -244,7 +244,7 @@ public class Database {
                     String id = resultSet.getString(1);
                     String description = resultSet.getString(2);
                     Double price = resultSet.getDouble(3);
-                    carStr = "Alfa kod: " + id + " | CIJENA: " + price + "kn\n---------------------------------------------------------\n" +
+                    carStr = "Alfa kod: " + id + " | CIJENA: " + price + "kn\n.....................................................................\n" +
                             description;
                 }
             } catch (SQLException throwables) {
