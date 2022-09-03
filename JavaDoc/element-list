@@ -1,0 +1,10 @@
+com.lukafilipovic.AlfaRomeoCarConfigurator
+com.lukafilipovic.AlfaRomeoCarConfigurator.controller
+com.lukafilipovic.AlfaRomeoCarConfigurator.model.car
+com.lukafilipovic.AlfaRomeoCarConfigurator.model.Database
+com.lukafilipovic.AlfaRomeoCarConfigurator.model.User
+com.lukafilipovic.AlfaRomeoCarConfigurator.view.authentification
+com.lukafilipovic.AlfaRomeoCarConfigurator.view.common
+com.lukafilipovic.AlfaRomeoCarConfigurator.view.configure_car
+com.lukafilipovic.AlfaRomeoCarConfigurator.view.home
+com.lukafilipovic.AlfaRomeoCarConfigurator.view.view_cars
