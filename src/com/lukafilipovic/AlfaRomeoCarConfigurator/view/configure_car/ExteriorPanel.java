@@ -147,7 +147,7 @@ public class ExteriorPanel extends JPanel {
      */
     private void initColorImages() {
         int k = 0;
-        File dir = new File("colorImages");
+        File dir = new File("images/colorImages");
         File[] files = dir.listFiles();
         colorImages = new BufferedImage[9];
         for (File file : files) {
@@ -168,7 +168,7 @@ public class ExteriorPanel extends JPanel {
      */
     private void initWheelsImages() {
         int k = 0;
-        File dir = new File("wheelsImages");
+        File dir = new File("images/wheelsImages");
         File[] files = dir.listFiles();
 
         wheelsImages = new BufferedImage[3];
@@ -191,7 +191,7 @@ public class ExteriorPanel extends JPanel {
 
     private void initBrakesImages() {
         int k = 0;
-        File dir = new File("brakesImages");
+        File dir = new File("images/brakesImages");
         File[] files = dir.listFiles();
         brakesImages = new BufferedImage[4];
         for (File file : files) {

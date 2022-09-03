@@ -102,8 +102,8 @@ public class SelectCarModelFrame extends JFrame implements ItemListener {
         engineTxtArea.setEditable(false);
         engineTxtArea.setFont(fontTxtArea);
         try {
-            imageGiulia = ImageIO.read(new File("giulia.png"));
-            imageStelvio = ImageIO.read(new File("stelvio.png"));
+            imageGiulia = ImageIO.read(new File("images/giulia.png"));
+            imageStelvio = ImageIO.read(new File("images/stelvio.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -117,7 +117,7 @@ public class SelectCarModelFrame extends JFrame implements ItemListener {
         priceModel = 255550.00;
         priceEngine = 0.00;
         price = priceModel + priceEngine;
-        pricePanel.getPriceLbl().setText(String.valueOf(price) + " kn");
+        pricePanel.getPriceLbl().setText(price + " kn");
     }
 
     private void initCarModelPanelLayout() {

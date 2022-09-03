@@ -97,7 +97,7 @@ public class InteriorPanel extends JPanel {
      */
     private void initSeatsImages() {
         int k = 0;
-        File dir = new File("seatsImages");
+        File dir = new File("images/seatsImages");
         File[] files = dir.listFiles();
         seatsImages = new BufferedImage[2];
         for (File file : files) {
