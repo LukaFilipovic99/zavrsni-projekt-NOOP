@@ -211,7 +211,7 @@ public class Database {
                     String id = resultSet.getString(1);
                     String description = resultSet.getString(2);
                     Double price = resultSet.getDouble(3);
-                    carStr = "Alfa kod: " + id + " | CIJENA: " + price + "kn\n.....................................................................\n" +
+                    carStr = "Alfa kod: " + id + " | CIJENA: " + price + " kn\n.....................................................................\n" +
                             description;
                     carsStr.append(carStr).append("___________________________________________________________________________________________________________________________________________________\n \n");
                 }
@@ -244,7 +244,7 @@ public class Database {
                     String id = resultSet.getString(1);
                     String description = resultSet.getString(2);
                     Double price = resultSet.getDouble(3);
-                    carStr = "Alfa kod: " + id + " | CIJENA: " + price + "kn\n.....................................................................\n" +
+                    carStr = "Alfa kod: " + id + " | CIJENA: " + price + " kn\n.....................................................................\n" +
                             description;
                 }
             } catch (SQLException throwables) {
