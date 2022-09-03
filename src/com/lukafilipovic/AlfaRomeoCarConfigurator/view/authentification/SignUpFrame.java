@@ -185,18 +185,29 @@ public class SignUpFrame extends JFrame {
             JOptionPane.showMessageDialog
                     (new Frame(), "Ime ne smije biti prazno.", "Registracija", JOptionPane.PLAIN_MESSAGE);
             return false;
-        }
-        if (lastNameTxt.getText().isBlank()) {
+        } else if (firstNameTxt.getText().length() > 30) {
+            JOptionPane.showMessageDialog
+                    (new Frame(), "Ime smije imati maksimalno 30 znakova.", "Registracija", JOptionPane.PLAIN_MESSAGE);
+            return false;
+        } else if (lastNameTxt.getText().isBlank()) {
             JOptionPane.showMessageDialog
                     (new Frame(), "Prezime ne smije biti prazno.", "Registracija", JOptionPane.PLAIN_MESSAGE);
+            return false;
+        } else if (lastNameTxt.getText().length()>30) {
+            JOptionPane.showMessageDialog
+                    (new Frame(), "Prezime smije imati maksimalno 30 znakova.", "Registracija", JOptionPane.PLAIN_MESSAGE);
             return false;
         } else if (!emailTxt.getText().contains("@")) {
             JOptionPane.showMessageDialog
                     (new Frame(), "Molimo unesite e-mail u ispravnom formatu.", "Registracija", JOptionPane.PLAIN_MESSAGE);
             return false;
-        } else if (passwordTxt.getPassword().length < 6) {
+        } else if (emailTxt.getText().length() > 70) {
             JOptionPane.showMessageDialog
-                    (new Frame(), "Morate unijeti lozinku koja sadrži minimalno 6 znakova.", "Registracija", JOptionPane.PLAIN_MESSAGE);
+                    (new Frame(), "E-mail smije imati maksimalno 70 znakova.", "Registracija", JOptionPane.PLAIN_MESSAGE);
+            return false;
+        } else if (passwordTxt.getPassword().length < 6 || passwordTxt.getPassword().length > 30) {
+            JOptionPane.showMessageDialog
+                    (new Frame(), "Lozinka mora imati minimalno 6, a maksimalno 30 znakova", "Registracija", JOptionPane.PLAIN_MESSAGE);
             return false;
         } else if (!Arrays.equals(passwordRepeatTxt.getPassword(), passwordTxt.getPassword())) {
             JOptionPane.showMessageDialog
