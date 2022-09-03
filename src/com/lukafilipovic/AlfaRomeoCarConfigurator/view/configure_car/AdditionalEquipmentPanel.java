@@ -46,8 +46,8 @@ public class AdditionalEquipmentPanel extends JPanel {
     }
 
     private void initComps() {
-        Font font1=new Font("Arial", Font.BOLD, 14);
-        Font font2=new Font("Arial", Font.PLAIN, 12);
+        Font font1 = new Font("Arial", Font.BOLD, 14);
+        Font font2 = new Font("Arial", Font.PLAIN, 12);
         navCheckBox = new JCheckBox("AlfaTM Connect navigacija s 8.8-inčnim zaslonom");
         navCheckBox.setFont(font1);
         navPriceLbl = new JLabel(String.valueOf(navPrice) + " kn");

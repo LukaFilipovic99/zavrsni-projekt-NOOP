@@ -12,7 +12,10 @@ import lombok.Setter;
 import javax.swing.*;
 import java.awt.*;
 
-
+/**
+ * Home frame of the app which shows after successful log in.
+ * User can select if he want to configure new car or view cars he already configured.
+ */
 @Getter
 @Setter
 public class HomeFrame extends JFrame {
@@ -25,7 +28,7 @@ public class HomeFrame extends JFrame {
     private User user;
     private Controller controller;
 
-    public HomeFrame(){
+    public HomeFrame() {
         super("Alfa Romeo Konfigurator");
         setSize(700, 400);
         setLocationRelativeTo(null);
@@ -34,34 +37,34 @@ public class HomeFrame extends JFrame {
         initComps();
         initSelectPanelLayout();
         setLayout(new BorderLayout());
-        add(navPanel,BorderLayout.NORTH);
+        add(navPanel, BorderLayout.NORTH);
         add(selectPanel, BorderLayout.CENTER);
         setVisible(true);
         activatePanel();
         activateNavPanel();
     }
 
-    private void initComps(){
-        Font font=new Font("Arial", Font.PLAIN, 20);
-        Font fontBtn=new Font("Arial", Font.BOLD, 35);
-        configureNewCarLbl=new JLabel("<html><p>Konfigurirajte vaš<br>novi Alfa Romeo</p></html>");
+    private void initComps() {
+        Font font = new Font("Arial", Font.PLAIN, 20);
+        Font fontBtn = new Font("Arial", Font.BOLD, 35);
+        configureNewCarLbl = new JLabel("<html><p>Konfigurirajte vaš<br>novi Alfa Romeo</p></html>");
         configureNewCarLbl.setFont(font);
-        configureNewCarBtn=new JButton(">");
+        configureNewCarBtn = new JButton(">");
         configureNewCarBtn.setFont(fontBtn);
         configureNewCarBtn.setBackground(Color.DARK_GRAY);
         configureNewCarBtn.setForeground(Color.WHITE);
-        viewConfiguredCarsLbl= new JLabel("<html><p>Pregledajte već<br>konfigurirane automobile</p></html>");
+        viewConfiguredCarsLbl = new JLabel("<html><p>Pregledajte već<br>konfigurirane automobile</p></html>");
         viewConfiguredCarsLbl.setFont(font);
-        viewConfiguredCarsBtn=new JButton(">");
+        viewConfiguredCarsBtn = new JButton(">");
         viewConfiguredCarsBtn.setFont(fontBtn);
         viewConfiguredCarsBtn.setBackground(Color.DARK_GRAY);
         viewConfiguredCarsBtn.setForeground(Color.WHITE);
-        selectPanel=new JPanel();
-        navPanel=new NavPanel();
-        controller =new Controller();
+        selectPanel = new JPanel();
+        navPanel = new NavPanel();
+        controller = new Controller();
     }
 
-    private void initSelectPanelLayout(){
+    private void initSelectPanelLayout() {
         selectPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -74,11 +77,11 @@ public class HomeFrame extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         selectPanel.add(viewConfiguredCarsLbl, gbc);
 
-        gbc.gridx=0;
-        gbc.gridy=1;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         selectPanel.add(configureNewCarBtn, gbc);
-        gbc.gridx=1;
-        selectPanel.add(viewConfiguredCarsBtn,gbc);
+        gbc.gridx = 1;
+        selectPanel.add(viewConfiguredCarsBtn, gbc);
     }
 
     /**
@@ -86,21 +89,24 @@ public class HomeFrame extends JFrame {
      * where he can start configuring his car and clicking on viewConfiguredCarsBtn sends user to the ViewConfiguredCarsFrame where he can see
      * already configured cars.
      */
-    private void activatePanel(){
+    private void activatePanel() {
         configureNewCarBtn.addActionListener(e -> {
-            SelectCarModelFrame selectCarModelFrame=new SelectCarModelFrame();
+            SelectCarModelFrame selectCarModelFrame = new SelectCarModelFrame();
             selectCarModelFrame.setUser(user);
             controller.setUserNameOnNavPanel(selectCarModelFrame.getNavPanel(), user);
             dispose();
         });
         viewConfiguredCarsBtn.addActionListener(e -> {
-            ViewConfiguredCarsFrame viewConfiguredCarsFrame=new ViewConfiguredCarsFrame();
+            ViewConfiguredCarsFrame viewConfiguredCarsFrame = new ViewConfiguredCarsFrame();
             viewConfiguredCarsFrame.setUser(user);
             controller.setUserNameOnNavPanel(viewConfiguredCarsFrame.getNavPanel(), user);
             dispose();
         });
     }
 
+    /**
+     * Activate buttons on NavPanel which can log out user (logOutBtn) or send user to the HomeFrame (getBackToHomepageBtn).
+     */
     private void activateNavPanel() {
         navPanel.getBackToHomepageBtn().addActionListener(e -> {
             HomeFrame homeFrame = new HomeFrame();

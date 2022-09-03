@@ -1,5 +1,8 @@
 package com.lukafilipovic.AlfaRomeoCarConfigurator.model.car;
 
+/**
+ * Class used to decorate car with engine.
+ */
 public class EngineDecoratedCar extends CarDecoratorAbs {
 
     public EngineDecoratedCar(CarAbs carAbs, String engine, double price) {

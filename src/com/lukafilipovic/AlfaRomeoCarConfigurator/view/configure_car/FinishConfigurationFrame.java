@@ -88,6 +88,9 @@ public class FinishConfigurationFrame extends JFrame {
         infoPanel.add(infoTextLbl3, gbc);
     }
 
+    /**
+     * Activate buttons on NavPanel which can log out user (logOutBtn) or send user to the HomeFrame (getBackToHomepageBtn).
+     */
     private void activateNavPanel() {
         navPanel.getBackToHomepageBtn().addActionListener(e -> {
             HomeFrame homeFrame = new HomeFrame();

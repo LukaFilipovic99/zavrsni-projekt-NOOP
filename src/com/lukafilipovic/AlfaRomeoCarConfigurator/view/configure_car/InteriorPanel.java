@@ -7,8 +7,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +30,7 @@ public class InteriorPanel extends JPanel {
     double seatsPrice;
     private JButton submitBtn;
 
-    public InteriorPanel(){
+    public InteriorPanel() {
         initSeatsImages();
         initComps();
         initInteriorEqPanelLayout();
@@ -44,29 +42,29 @@ public class InteriorPanel extends JPanel {
         setVisible(true);
     }
 
-    private void initComps(){
-        buttonPanel=new JPanel();
-        interiorEqPanel=new JPanel();
-        Font font1=new Font("Arial", Font.BOLD, 20);
-        Font font2=new Font("Arial", Font.PLAIN, 18);
-        Font fontBtn=new Font("Arial", Font.BOLD, 35);
-        seatsLbl=new JLabel("Sjedala:");
+    private void initComps() {
+        buttonPanel = new JPanel();
+        interiorEqPanel = new JPanel();
+        Font font1 = new Font("Arial", Font.BOLD, 20);
+        Font font2 = new Font("Arial", Font.PLAIN, 18);
+        Font fontBtn = new Font("Arial", Font.BOLD, 35);
+        seatsLbl = new JLabel("Sjedala:");
         seatsLbl.setFont(font1);
-        seatsCBox=new JComboBox(seats.keySet().toArray());
+        seatsCBox = new JComboBox(seats.keySet().toArray());
         seatsCBox.setFont(font2);
-        seatsPrice=seats.get("Tkanina");
-        seatsPriceLbl=new JLabel(String.valueOf(seatsPrice)+" kn");
+        seatsPrice = seats.get("Tkanina");
+        seatsPriceLbl = new JLabel(String.valueOf(seatsPrice) + " kn");
         seatsPriceLbl.setFont(font2);
-        seatsPictureLbl= new JLabel(new ImageIcon(seatsImages[1]));
-        submitBtn=new JButton("Konfiguriraj");
+        seatsPictureLbl = new JLabel(new ImageIcon(seatsImages[1]));
+        submitBtn = new JButton("Konfiguriraj");
         submitBtn.setFont(fontBtn);
         submitBtn.setBackground(Color.DARK_GRAY);
         submitBtn.setForeground(Color.WHITE);
     }
 
-    private void initInteriorEqPanelLayout(){
+    private void initInteriorEqPanelLayout() {
         interiorEqPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc=new GridBagConstraints();
+        GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -76,16 +74,16 @@ public class InteriorPanel extends JPanel {
         gbc.gridx = 1;
         interiorEqPanel.add(seatsPriceLbl, gbc);
 
-        gbc.gridx=0;
-        gbc.gridy=1;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         interiorEqPanel.add(seatsCBox, gbc);
-        gbc.gridy=2;
+        gbc.gridy = 2;
         interiorEqPanel.add(seatsPictureLbl, gbc);
     }
 
-    private void initButtonLayout(){
+    private void initButtonLayout() {
         buttonPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc=new GridBagConstraints();
+        GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -115,7 +113,7 @@ public class InteriorPanel extends JPanel {
         }
     }
 
-    private void addBorder(){
+    private void addBorder() {
         Border outer = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         Border inner = BorderFactory.createTitledBorder("INTERIJER");
         Border border = BorderFactory.createCompoundBorder(outer, inner);

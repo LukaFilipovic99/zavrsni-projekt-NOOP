@@ -8,7 +8,6 @@ import lombok.Setter;
 /**
  * User class represents user entity in database.
  */
-
 @Getter
 @Setter
 @AllArgsConstructor

@@ -29,35 +29,51 @@ public class Controller {
     }
 
     /**
-     * Checks if user with email already exists in database. If does return message to select another email and if does not saves user to the database.
+     * Checks if user with email already exists in database. If does return status code 0 and shows message,
+     * if does not return status code 1, saves user to the database and shows message about successful registration.
      *
      * @param user
-     * @return message.
+     * @return status code.
      * @throws SQLException
      */
-    public String saveUser(User user) throws SQLException {
-        if (database.ifUserWithEmailExists(user.getEmail()))
-            return "Korisnik s tom e-mail adresom već postoji! Molimo unesite drugu e-mail adresu.";
-        else {
+    public int saveUser(User user) throws SQLException {
+        if (database.ifUserWithEmailExists(user.getEmail())) {
+            JOptionPane.showMessageDialog(
+                    new Frame(), "Korisnik s tom e-mail adresom već postoji! Molimo unesite drugu e-mail adresu.", "Registracija", JOptionPane.PLAIN_MESSAGE);
+            return 0;
+        } else {
             database.saveUserToDB(user);
-            return "Registracija uspješna!";
+            JOptionPane.showMessageDialog(
+                    new Frame(), "Registracija uspješna.", "Registracija", JOptionPane.PLAIN_MESSAGE);
+            return 1;
         }
     }
 
     /**
-     * Checks if user with email already exists in database. If does not return message. If does not checks if email and
-     * password are matching with the data in the database and then loads user data from database.
+     * Checks if user with email exists in database. If does not return status code 0 and message. If does checks if email and
+     * password match data in the database and if does loads user data from the database, return status code 1 and shows message about successful log in.
+     * If password does not match with email return status code 2 and shows message.
+     *
      * @param email
      * @param password
-     * @return message.
+     * @return status code.
      * @throws SQLException
      */
-    public String logIn(String email, String password) throws SQLException {
-        if (!database.ifUserWithEmailExists(email)) return "Korisnik s tom e-mail adresom ne postoji.";
-        else if (database.areEmailAndPasswordMatching(email, password)) {
+    public int logIn(String email, String password) throws SQLException {
+        if (!database.ifUserWithEmailExists(email)) {
+            JOptionPane.showMessageDialog(
+                    new Frame(), "Korisnik s tom e-mail adresom ne postoji.", "Prijava", JOptionPane.PLAIN_MESSAGE);
+            return 0;
+        } else if (database.areEmailAndPasswordMatching(email, password)) {
             this.user = database.loadUserFromDB(email, password);
-            return "Prijava uspješna.";
-        } else return "Netočna lozinka!";
+            JOptionPane.showMessageDialog(
+                    new Frame(), "Prijava uspješna.", "Prijava", JOptionPane.PLAIN_MESSAGE);
+            return 1;
+        } else {
+            JOptionPane.showMessageDialog(
+                    new Frame(), "Netočna lozinka!", "Prijava", JOptionPane.PLAIN_MESSAGE);
+            return 2;
+        }
     }
 
     public void setUserNameOnNavPanel(NavPanel panel, User user) {
@@ -65,29 +81,71 @@ public class Controller {
     }
 
     public void setPriceToEquipmentFramePricePanel(EquipmentFrame frame, double price) {
-        frame.getPricePanel().getPriceLbl().setText(String.valueOf(price) + " kn");
+        frame.getPricePanel().getPriceLbl().setText(price + " kn");
     }
 
+    /**
+     * Wrap car with engine decorator (EngineDecoratedCar) using decorator pattern.
+     * @param car
+     * @param engine
+     * @param price
+     * @return EngineDecoratedCar
+     */
     public EngineDecoratedCar addEngineToCar(CarAbs car, String engine, double price) {
         return new EngineDecoratedCar(car, engine, price);
     }
 
+    /**
+     * Wrap car with color decorator (ColorDecoratedCar) using decorator pattern.
+     * @param car
+     * @param color
+     * @param price
+     * @return ColorDecoratedCar
+     */
     public ColorDecoratedCar addColorToCar(CarAbs car, String color, double price) {
         return new ColorDecoratedCar(car, color, price);
     }
 
+    /**
+     * Wrap car with wheels decorator (WheelsDecoratedCar) using decorator pattern.
+     * @param car
+     * @param wheels
+     * @param price
+     * @return WheelsDecoratedCar
+     */
     public WheelsDecoratedCar addWheelsToCar(CarAbs car, String wheels, double price) {
         return new WheelsDecoratedCar(car, wheels, price);
     }
 
+    /**
+     * Wrap car with brakes decorator (BrakesDecoratedCar) using decorator pattern.
+     * @param car
+     * @param brakes
+     * @param price
+     * @return BrakesDecoratedCar
+     */
     public BrakesDecoratedCar addBrakesToCar(CarAbs car, String brakes, double price) {
         return new BrakesDecoratedCar(car, brakes, price);
     }
 
+    /**
+     * Wrap car with seats decorator (SeatsDecoratedCar) using decorator pattern.
+     * @param car
+     * @param seats
+     * @param price
+     * @return SeatsDecoratedCar
+     */
     public SeatsDecoratedCar addSeatsToCar(CarAbs car, String seats, double price) {
         return new SeatsDecoratedCar(car, seats, price);
     }
 
+    /**
+     * Wrap car with additional equipment decorator (AdditionalEquipmentDecoratedCar) using decorator pattern.
+     * @param car
+     * @param equipmentList
+     * @param price
+     * @return AdditionalEquipmentDecoratedCar
+     */
     public AdditionalEquipmentDecoratedCar addEquipmentToCar(CarAbs car, List<String> equipmentList, double price) {
         return new AdditionalEquipmentDecoratedCar(car, equipmentList, price);
     }
@@ -109,35 +167,36 @@ public class Controller {
         return carId;
     }
 
-    public void setAlfaCodeToFinishConfigurationFrame(FinishConfigurationFrame frame, String alfaCode){
+    public void setAlfaCodeToFinishConfigurationFrame(FinishConfigurationFrame frame, String alfaCode) {
         frame.getAlfaCode().setText(alfaCode);
     }
 
     /**
      * Get data from database of all cars configured by user and shows it on the carsTxtArea.
+     *
      * @param user
      * @param carsTxtArea
      * @throws SQLException
      */
     public void showAllCarsOnTxtArea(User user, JTextArea carsTxtArea) throws SQLException {
-        String cars=database.getAllCarsByUserId(user.getId());
+        String cars = database.getAllCarsByUserId(user.getId());
         carsTxtArea.setText(cars);
     }
 
 
     /**
      * Get data about car with selected id and shows it on the carsTxtArea.
+     *
      * @param user
      * @param carId
      * @param carsTxtArea
      * @throws SQLException
      */
     public void showCarWithIdOnTxtArea(User user, String carId, JTextArea carsTxtArea) throws SQLException {
-        if (database.ifCarIdExists(carId)){
-            String car=database.getCarByUserIdAndCarId(user.getId(), carId);
+        if (database.ifCarIdExists(carId)) {
+            String car = database.getCarByUserIdAndCarId(user.getId(), carId);
             carsTxtArea.setText(car);
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(new Frame(), "Auto s tim alfa kodom ne postoji!", "Neispravan alfa kod", JOptionPane.PLAIN_MESSAGE);
         }
     }

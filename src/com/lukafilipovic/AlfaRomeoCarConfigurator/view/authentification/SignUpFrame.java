@@ -7,8 +7,6 @@ import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -138,36 +136,28 @@ public class SignUpFrame extends JFrame {
     }
 
     /**
-     * Clicking signUpBtn saves user to the database using Controller and sends user to the LogInFrame.
+     * Clicking signUpBtn calls controller method which saves user to the database.
      * Clicking logInBtn sends user to LogInFrame.
      */
     private void activatePanel() {
-        signUpBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                boolean success = false;
-                if (isValidated()) {
-                    user = createUser();
-                    try {
-                        String message = controller.saveUser(user);
-                        if (message == "Registracija uspješna!") success = true;
-                        JOptionPane.showMessageDialog(new Frame(), message, "Registracija", JOptionPane.PLAIN_MESSAGE);
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-                }
-                if (success) {
-                    dispose();
-                    new LogInFrame();
+        signUpBtn.addActionListener(e -> {
+            int status = 0;
+            if (isValidated()) {
+                user = createUser();
+                try {
+                    status = controller.saveUser(user);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                 }
             }
-        });
-        logInBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+            if (status == 1) {
                 dispose();
                 new LogInFrame();
             }
+        });
+        logInBtn.addActionListener(e -> {
+            dispose();
+            new LogInFrame();
         });
     }
 

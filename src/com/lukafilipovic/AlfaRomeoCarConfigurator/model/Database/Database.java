@@ -74,11 +74,10 @@ public class Database {
     /**
      * Checks if user with email already exists in database.
      *
-     * @param user
+     * @param email
      * @return true if exists and false if does not.
      * @throws SQLException
      */
-
     public boolean ifUserWithEmailExists(String email) throws SQLException {
         connect();
         PreparedStatement statement = con.prepareStatement
@@ -94,6 +93,13 @@ public class Database {
         }
     }
 
+    /**
+     * Checks if email matches password for user entity in database.
+     *
+     * @param email
+     * @return true if does and false if does not.
+     * @throws SQLException
+     */
     public boolean areEmailAndPasswordMatching(String email, String password) throws SQLException {
         connect();
         PreparedStatement statement = con.prepareStatement
@@ -111,6 +117,13 @@ public class Database {
 
     }
 
+    /**
+     * Loads user data with selected email and password from the database.
+     * @param email
+     * @param password
+     * @return user
+     * @throws SQLException
+     */
     public User loadUserFromDB(String email, String password) throws SQLException {
         User user = new User();
         connect();
@@ -137,7 +150,6 @@ public class Database {
      * @return true if exists, false if does not.
      * @throws SQLException
      */
-
     public boolean ifCarIdExists(String carId) throws SQLException {
         connect();
         PreparedStatement statement = con.prepareStatement
@@ -179,23 +191,29 @@ public class Database {
         disconnect();
     }
 
+    /**
+     * Select all cars in the database with selected user id.
+     * @param userId
+     * @return String with cars data.
+     * @throws SQLException
+     */
     public String getAllCarsByUserId(Long userId) throws SQLException {
-        StringBuilder carsStr= new StringBuilder();
+        StringBuilder carsStr = new StringBuilder();
         connect();
         if (con != null) {
             try {
                 PreparedStatement statement = con.prepareStatement
                         ("SELECT id , description, price FROM cars WHERE user_id=?");
                 statement.setLong(1, userId);
-                ResultSet resultSet=statement.executeQuery();
-                while(resultSet.next()) {
-                    String carStr="";
-                    String id=resultSet.getString(1);
-                    String description=resultSet.getString(2);
-                    Double price=resultSet.getDouble(3);
-                    carStr="Alfa kod: "+id+ " | CIJENA: "+ price + "kn\n---------------------------------------------------------\n"+
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    String carStr = "";
+                    String id = resultSet.getString(1);
+                    String description = resultSet.getString(2);
+                    Double price = resultSet.getDouble(3);
+                    carStr = "Alfa kod: " + id + " | CIJENA: " + price + "kn\n---------------------------------------------------------\n" +
                             description;
-                    carsStr.append("___________________________________________________________________________________________________________________________________________________\n \n").append(carStr);
+                    carsStr.append(carStr).append("___________________________________________________________________________________________________________________________________________________\n \n");
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -205,21 +223,28 @@ public class Database {
         return carsStr.toString();
     }
 
+    /**
+     * Select car in the database with selected car id and user id.
+     * @param userId
+     * @param carId
+     * @return String with car data.
+     * @throws SQLException
+     */
     public String getCarByUserIdAndCarId(Long userId, String carId) throws SQLException {
         connect();
-        String carStr="";
+        String carStr = "";
         if (con != null) {
             try {
                 PreparedStatement statement = con.prepareStatement
                         ("SELECT id , description, price FROM cars WHERE user_id=? AND id=?");
                 statement.setLong(1, userId);
                 statement.setString(2, carId);
-                ResultSet resultSet=statement.executeQuery();
-                if(resultSet.next()) {
-                    String id=resultSet.getString(1);
-                    String description=resultSet.getString(2);
-                    Double price=resultSet.getDouble(3);
-                    carStr="Alfa kod: "+id+ " | CIJENA: "+ price + "kn\n---------------------------------------------------------\n"+
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    String id = resultSet.getString(1);
+                    String description = resultSet.getString(2);
+                    Double price = resultSet.getDouble(3);
+                    carStr = "Alfa kod: " + id + " | CIJENA: " + price + "kn\n---------------------------------------------------------\n" +
                             description;
                 }
             } catch (SQLException throwables) {

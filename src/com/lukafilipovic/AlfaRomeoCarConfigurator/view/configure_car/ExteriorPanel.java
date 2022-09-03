@@ -7,8 +7,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +58,7 @@ public class ExteriorPanel extends JPanel {
     private BufferedImage[] brakesImages;
     private double price;
 
-    public ExteriorPanel(){
+    public ExteriorPanel() {
         initColorImages();
         initWheelsImages();
         initBrakesImages();
@@ -71,34 +69,34 @@ public class ExteriorPanel extends JPanel {
     }
 
     private void initComps() {
-        Font font1=new Font("Arial", Font.BOLD, 20);
-        Font font2=new Font("Arial", Font.PLAIN, 18);
+        Font font1 = new Font("Arial", Font.BOLD, 20);
+        Font font2 = new Font("Arial", Font.PLAIN, 18);
         colorCBox = new JComboBox(colors.keySet().toArray());
         colorCBox.setFont(font2);
         colorLbl = new JLabel("Boja: ");
         colorLbl.setFont(font1);
         colorPriceLbl = new JLabel("0.0 kn");
         colorPriceLbl.setFont(font2);
-        colorPictureLbl=new JLabel(new ImageIcon(colorImages[1]));
-        wheelslbl=new JLabel("Kotači: ");
+        colorPictureLbl = new JLabel(new ImageIcon(colorImages[1]));
+        wheelslbl = new JLabel("Kotači: ");
         wheelslbl.setFont(font1);
-        wheelsCBox=new JComboBox(wheels.keySet().toArray());
+        wheelsCBox = new JComboBox(wheels.keySet().toArray());
         wheelsCBox.setFont(font2);
-        wheelsPriceLbl=new JLabel(String.valueOf(wheels.get("R19 Aluminijski naplatci") + " kn"));
+        wheelsPriceLbl = new JLabel(String.valueOf(wheels.get("R19 Aluminijski naplatci") + " kn"));
         wheelsPriceLbl.setFont(font2);
-        wheelsPictureLbl=new JLabel(new ImageIcon(wheelsImages[1]));
-        brakesCBox=new JComboBox(brakes.keySet().toArray());
+        wheelsPictureLbl = new JLabel(new ImageIcon(wheelsImages[1]));
+        brakesCBox = new JComboBox(brakes.keySet().toArray());
         brakesCBox.setFont(font2);
-        brakesLbl=new JLabel("Kočiona kliješta");
+        brakesLbl = new JLabel("Kočiona kliješta");
         brakesLbl.setFont(font1);
-        brakesPictureLbl=new JLabel(new ImageIcon(brakesImages[2]));
-        brakesPriceLbl=new JLabel(String.valueOf(brakes.get("Kočiona kliješta - SIVA") + " kn"));
+        brakesPictureLbl = new JLabel(new ImageIcon(brakesImages[2]));
+        brakesPriceLbl = new JLabel(String.valueOf(brakes.get("Kočiona kliješta - SIVA") + " kn"));
         brakesPriceLbl.setFont(font2);
     }
 
-    private void initLayout(){
+    private void initLayout() {
         setLayout(new GridBagLayout());
-        GridBagConstraints gbc=new GridBagConstraints();
+        GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -108,39 +106,39 @@ public class ExteriorPanel extends JPanel {
         gbc.gridx = 1;
         add(colorPriceLbl, gbc);
 
-        gbc.gridx=0;
-        gbc.gridy=1;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         add(colorCBox, gbc);
-        gbc.gridx=1;
-        add(colorPictureLbl,gbc);
+        gbc.gridx = 1;
+        add(colorPictureLbl, gbc);
 
-        gbc.gridx=0;
-        gbc.gridy=2;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
         gbc.insets = new Insets(50, 10, 0, 10);
         add(wheelslbl, gbc);
-        gbc.gridx=1;
+        gbc.gridx = 1;
         gbc.insets = new Insets(20, 10, 0, 30);
-        add(wheelsPriceLbl,gbc);
+        add(wheelsPriceLbl, gbc);
 
-        gbc.gridx=0;
-        gbc.gridy=3;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
         add(wheelsCBox, gbc);
-        gbc.gridx=1;
-        add(wheelsPictureLbl,gbc);
+        gbc.gridx = 1;
+        add(wheelsPictureLbl, gbc);
 
-        gbc.gridx=0;
-        gbc.gridy=4;
+        gbc.gridx = 0;
+        gbc.gridy = 4;
         gbc.insets = new Insets(50, 10, 0, 10);
         add(brakesLbl, gbc);
-        gbc.gridx=1;
+        gbc.gridx = 1;
         gbc.insets = new Insets(20, 10, 0, 10);
-        add(brakesPriceLbl,gbc);
+        add(brakesPriceLbl, gbc);
 
-        gbc.gridx=0;
-        gbc.gridy=5;
+        gbc.gridx = 0;
+        gbc.gridy = 5;
         add(brakesCBox, gbc);
-        gbc.gridx=1;
-        add(brakesPictureLbl,gbc);
+        gbc.gridx = 1;
+        add(brakesPictureLbl, gbc);
 
     }
 
@@ -209,7 +207,7 @@ public class ExteriorPanel extends JPanel {
         }
     }
 
-    private void addBorder(){
+    private void addBorder() {
         Border outer = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         Border inner = BorderFactory.createTitledBorder("EKSTERIJER");
         Border border = BorderFactory.createCompoundBorder(outer, inner);

@@ -14,10 +14,10 @@ import java.awt.*;
 public class PricePanel extends JPanel {
     private JLabel priceLbl;
 
-    public PricePanel(){
-        priceLbl=new JLabel();
-        Font font=new Font("Arial", Font.PLAIN, 26);
-        Font font1=new Font("Arial", Font.BOLD, 32);
+    public PricePanel() {
+        priceLbl = new JLabel();
+        Font font = new Font("Arial", Font.PLAIN, 26);
+        Font font1 = new Font("Arial", Font.BOLD, 32);
         setLayout(new FlowLayout());
         add(new JLabel("Cijena: ")).setFont(font);
         add(priceLbl);

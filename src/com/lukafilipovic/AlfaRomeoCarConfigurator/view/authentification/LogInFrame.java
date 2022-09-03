@@ -8,14 +8,11 @@ import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 /**
  * Log in frame.
  */
-
 @Getter
 @Setter
 public class LogInFrame extends JFrame {
@@ -94,44 +91,38 @@ public class LogInFrame extends JFrame {
     }
 
     /**
-     * Pressing the signInBtn sends user on the HomeFrame (if logging in is successful)  and pressing on signUpBtn sends usr to the SignUpFrame.
+     * Clicking logInBtn calls controller method which load user from the database if login information are right and then sends user to the HomeFrame.
+     * Clicking signUpBtn sends user to the SignUpFrame.
      */
     private void activateFrame() {
-        logInBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                boolean success = false;
-                user=new User();
-                if (isValidated()){
-                    try {
-                        String message= controller.logIn(emailTxt.getText(), String.valueOf(passwordTxt.getPassword()));
-                        if (message=="Prijava uspješna.") success=true;
-                        user= controller.getUser();
-                        JOptionPane.showMessageDialog(new Frame(), message, "Prijava", JOptionPane.PLAIN_MESSAGE);
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
+        logInBtn.addActionListener(e -> {
+            int status = 0;
+            user = new User();
+            if (isValidated()) {
+                try {
+                    status = controller.logIn(emailTxt.getText(), String.valueOf(passwordTxt.getPassword()));
+                    user = controller.getUser();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                 }
-                if (success){
-                    HomeFrame homeFrame=new HomeFrame();
-                    homeFrame.setUser(user);
-                    controller.setUserNameOnNavPanel(homeFrame.getNavPanel(), user);
-                    dispose();
-                }
-
             }
-        });
-        signUpBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+            if (status == 1) {
+                HomeFrame homeFrame = new HomeFrame();
+                homeFrame.setUser(user);
+                controller.setUserNameOnNavPanel(homeFrame.getNavPanel(), user);
                 dispose();
-                new SignUpFrame();
             }
+
+        });
+        signUpBtn.addActionListener(e -> {
+            dispose();
+            new SignUpFrame();
         });
     }
 
     /**
      * Checks if e-mail is in right format.
+     *
      * @return true if it is, false if it is not.
      */
     private boolean isValidated() {

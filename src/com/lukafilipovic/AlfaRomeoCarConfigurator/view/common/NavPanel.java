@@ -11,30 +11,30 @@ import java.awt.*;
  */
 @Getter
 @Setter
-public class NavPanel extends JPanel{
+public class NavPanel extends JPanel {
     private JButton logOutBtn;
     private JButton backToHomepageBtn;
     private JLabel userName;
 
-    public NavPanel(){
+    public NavPanel() {
         initComps();
         initLayout();
         setVisible(true);
     }
 
-    private void initComps(){
+    private void initComps() {
         setBackground(Color.DARK_GRAY);
-        Font font=new Font("Arial", Font.PLAIN, 28);
-        Font fontBtn=new Font("Arial", Font.BOLD, 28);
-        logOutBtn=new JButton("Odjavi se");
+        Font font = new Font("Arial", Font.PLAIN, 28);
+        Font fontBtn = new Font("Arial", Font.BOLD, 28);
+        logOutBtn = new JButton("Odjavi se");
         logOutBtn.setFont(fontBtn);
         logOutBtn.setBackground(Color.GRAY);
         logOutBtn.setForeground(Color.WHITE);
-        backToHomepageBtn=new JButton("Početna");
+        backToHomepageBtn = new JButton("Početna");
         backToHomepageBtn.setFont(fontBtn);
         backToHomepageBtn.setBackground(Color.GRAY);
         backToHomepageBtn.setForeground(Color.WHITE);
-        userName=new JLabel();
+        userName = new JLabel();
         userName.setFont(font);
         userName.setForeground(Color.WHITE);
     }

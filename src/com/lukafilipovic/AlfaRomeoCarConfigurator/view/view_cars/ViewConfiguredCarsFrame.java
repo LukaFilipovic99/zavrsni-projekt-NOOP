@@ -13,7 +13,7 @@ import java.awt.*;
 import java.sql.SQLException;
 
 /**
- * Frame where user can see cars he configured.
+ * Frame where user can view cars he configured.
  */
 @Getter
 @Setter
@@ -31,17 +31,17 @@ public class ViewConfiguredCarsFrame extends JFrame {
     private User user;
     private Controller controller;
 
-    public ViewConfiguredCarsFrame(){
+    public ViewConfiguredCarsFrame() {
         super("Alfa Romeo konfigurator");
-        setSize(1200,700);
+        setSize(1200, 700);
         setVisible(true);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initComps();
         initSelectPanelLayout();
-        Dimension dim=selectPanel.getPreferredSize();
-        dim.height=350;
+        Dimension dim = selectPanel.getPreferredSize();
+        dim.height = 350;
         viewPanel.setPreferredSize(dim);
         setLayout(new BorderLayout());
         add(navPanel, BorderLayout.NORTH);
@@ -81,9 +81,9 @@ public class ViewConfiguredCarsFrame extends JFrame {
         showBtn.setBackground(Color.DARK_GRAY);
         showBtn.setForeground(Color.WHITE);
 
-        navPanel=new NavPanel();
-        user=new User();
-        controller=new Controller();
+        navPanel = new NavPanel();
+        user = new User();
+        controller = new Controller();
     }
 
     private void initSelectPanelLayout() {
@@ -115,7 +115,7 @@ public class ViewConfiguredCarsFrame extends JFrame {
     /**
      * Clicking on showAllBtn calls controller method which gets data about all cars configured by user.
      */
-    private void viewAllCars(){
+    private void viewAllCars() {
         showAllBtn.addActionListener(e -> {
             try {
                 controller.showAllCarsOnTxtArea(user, carsTxtArea);
@@ -128,9 +128,9 @@ public class ViewConfiguredCarsFrame extends JFrame {
     /**
      * Clicking on showBtn calls controller method which gets data about car with id user has written in alfaCodeTxtField and shows data on carsTxtArea.
      */
-    private void viewCarById(){
+    private void viewCarById() {
         showBtn.addActionListener(e -> {
-            String carId=alfaCodeField.getText();
+            String carId = alfaCodeField.getText();
             try {
                 controller.showCarWithIdOnTxtArea(user, carId, carsTxtArea);
             } catch (SQLException throwables) {
@@ -139,6 +139,9 @@ public class ViewConfiguredCarsFrame extends JFrame {
         });
     }
 
+    /**
+     * Activate buttons on NavPanel which can log out user (logOutBtn) or send user to the HomeFrame (getBackToHomepageBtn).
+     */
     private void activateNavPanel() {
         navPanel.getBackToHomepageBtn().addActionListener(e -> {
             HomeFrame homeFrame = new HomeFrame();

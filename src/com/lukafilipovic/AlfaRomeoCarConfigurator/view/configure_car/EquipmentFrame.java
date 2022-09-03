@@ -18,7 +18,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Frame where user can select equipment he would like to add to the car.
+ */
 @Getter
 @Setter
 public class EquipmentFrame extends JFrame implements ItemListener {
@@ -91,7 +93,8 @@ public class EquipmentFrame extends JFrame implements ItemListener {
     }
 
     /**
-     * Decorate car with selected equipment using Decorator pattern and save decorated car to the database. Also sends user to the frame where he can see id of car he configured.
+     * Decorate car with selected equipment using Decorator pattern and calls controller method which saves decorated car to the database.
+     * Also sends user to the FinishConfigurationFrame.
      */
     private void configureCar() {
         interiorPanel.getSubmitBtn().addActionListener(e -> {
@@ -171,7 +174,7 @@ public class EquipmentFrame extends JFrame implements ItemListener {
             additionalEquipmentDecoratedCar = controller.addEquipmentToCar(seatsDecoratedCar, equipmentList, additionalEquipmentPrice);
             try {
                 String carId = controller.saveCar(user, additionalEquipmentDecoratedCar);
-                FinishConfigurationFrame finishConfigurationFrame=new FinishConfigurationFrame();
+                FinishConfigurationFrame finishConfigurationFrame = new FinishConfigurationFrame();
                 finishConfigurationFrame.setUser(user);
                 controller.setAlfaCodeToFinishConfigurationFrame(finishConfigurationFrame, carId);
                 controller.setUserNameOnNavPanel(finishConfigurationFrame.getNavPanel(), user);
@@ -179,7 +182,6 @@ public class EquipmentFrame extends JFrame implements ItemListener {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-
         });
     }
 
@@ -391,7 +393,9 @@ public class EquipmentFrame extends JFrame implements ItemListener {
         }
         addEquipmentPrice = navPrice + audioPrice + FSDPrice + parkSensorPrice + rainSensorPrice + seatHeatingPrice + cruiseControlPrice + sunroofPrice + headlightWasherPrice;
     }
-
+    /**
+     * Activate buttons on NavPanel which can log out user (logOutBtn) or send user to the HomeFrame (getBackToHomepageBtn).
+     */
     private void activateNavPanel() {
         navPanel.getBackToHomepageBtn().addActionListener(e -> {
             HomeFrame homeFrame = new HomeFrame();
