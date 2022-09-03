@@ -6,7 +6,8 @@ import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.CarAbs;
 import java.sql.*;
 
 /**
- * Database class which contains methods for connecting and disconnecting to the MySQL database. Also contains methods for executing SQL queries on the database.
+ * Database class which contains methods for connecting and disconnecting to the MySQL database.
+ * Also contains methods for executing SQL queries on the database.
  */
 public class Database {
     private Connection con;
@@ -177,4 +178,56 @@ public class Database {
         }
         disconnect();
     }
+
+    public String getAllCarsByUserId(Long userId) throws SQLException {
+        StringBuilder carsStr= new StringBuilder();
+        connect();
+        if (con != null) {
+            try {
+                PreparedStatement statement = con.prepareStatement
+                        ("SELECT id , description, price FROM cars WHERE user_id=?");
+                statement.setLong(1, userId);
+                ResultSet resultSet=statement.executeQuery();
+                while(resultSet.next()) {
+                    String carStr="";
+                    String id=resultSet.getString(1);
+                    String description=resultSet.getString(2);
+                    Double price=resultSet.getDouble(3);
+                    carStr="Alfa kod: "+id+ " | CIJENA: "+ price + "kn\n---------------------------------------------------------\n"+
+                            description;
+                    carsStr.append("___________________________________________________________________________________________________________________________________________________\n \n").append(carStr);
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        disconnect();
+        return carsStr.toString();
+    }
+
+    public String getCarByUserIdAndCarId(Long userId, String carId) throws SQLException {
+        connect();
+        String carStr="";
+        if (con != null) {
+            try {
+                PreparedStatement statement = con.prepareStatement
+                        ("SELECT id , description, price FROM cars WHERE user_id=? AND id=?");
+                statement.setLong(1, userId);
+                statement.setString(2, carId);
+                ResultSet resultSet=statement.executeQuery();
+                if(resultSet.next()) {
+                    String id=resultSet.getString(1);
+                    String description=resultSet.getString(2);
+                    Double price=resultSet.getDouble(3);
+                    carStr="Alfa kod: "+id+ " | CIJENA: "+ price + "kn\n---------------------------------------------------------\n"+
+                            description;
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        disconnect();
+        return carStr;
+    }
+
 }

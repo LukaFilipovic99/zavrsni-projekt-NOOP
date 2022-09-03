@@ -9,15 +9,12 @@ import com.lukafilipovic.AlfaRomeoCarConfigurator.view.configure_car.FinishConfi
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
 import java.util.List;
 import java.util.Random;
-
-/**
- * User controller.
- */
 
 @Getter
 @Setter
@@ -47,6 +44,14 @@ public class Controller {
         }
     }
 
+    /**
+     * Checks if user with email already exists in database. If does not return message. If does not checks if email and
+     * password are matching with the data in the database and then loads user data from database.
+     * @param email
+     * @param password
+     * @return message.
+     * @throws SQLException
+     */
     public String logIn(String email, String password) throws SQLException {
         if (!database.ifUserWithEmailExists(email)) return "Korisnik s tom e-mail adresom ne postoji.";
         else if (database.areEmailAndPasswordMatching(email, password)) {
@@ -88,7 +93,7 @@ public class Controller {
     }
 
     /**
-     * Saves configured car to the database
+     * Saves configured car to the database.
      *
      * @param user user who configured car
      * @param car  configured car
@@ -109,13 +114,42 @@ public class Controller {
     }
 
     /**
+     * Get data from database of all cars configured by user and shows it on the carsTxtArea.
+     * @param user
+     * @param carsTxtArea
+     * @throws SQLException
+     */
+    public void showAllCarsOnTxtArea(User user, JTextArea carsTxtArea) throws SQLException {
+        String cars=database.getAllCarsByUserId(user.getId());
+        carsTxtArea.setText(cars);
+    }
+
+
+    /**
+     * Get data about car with selected id and shows it on the carsTxtArea.
+     * @param user
+     * @param carId
+     * @param carsTxtArea
+     * @throws SQLException
+     */
+    public void showCarWithIdOnTxtArea(User user, String carId, JTextArea carsTxtArea) throws SQLException {
+        if (database.ifCarIdExists(carId)){
+            String car=database.getCarByUserIdAndCarId(user.getId(), carId);
+            carsTxtArea.setText(car);
+        }
+        else{
+            JOptionPane.showMessageDialog(new Frame(), "Auto s tim alfa kodom ne postoji!", "Neispravan alfa kod", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+
+    /**
      * Generates random alfa-numeric string of 8 characters. Source: "https://www.baeldung.com/java-random-string"
      *
      * @return generatedString
      */
     public String generateCarId() {
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
+        int leftLimit = 48;
+        int rightLimit = 122;
         int targetStringLength = 8;
         Random random = new Random();
 
@@ -125,7 +159,6 @@ public class Controller {
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString()
                 .toUpperCase();
-        System.out.println(generatedString);
         return generatedString;
     }
 

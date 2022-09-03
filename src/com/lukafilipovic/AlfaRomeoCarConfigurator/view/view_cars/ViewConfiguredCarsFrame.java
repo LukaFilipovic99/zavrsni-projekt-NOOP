@@ -2,12 +2,15 @@ package com.lukafilipovic.AlfaRomeoCarConfigurator.view.view_cars;
 
 import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.Controller;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.view.authentification.LogInFrame;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.common.NavPanel;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.view.home.HomeFrame;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 /**
  * Frame where user can see cars he configured.
@@ -45,6 +48,9 @@ public class ViewConfiguredCarsFrame extends JFrame {
         add(viewPanel, BorderLayout.CENTER);
         add(selectPanel, BorderLayout.SOUTH);
         setVisible(true);
+        viewAllCars();
+        viewCarById();
+        activateNavPanel();
     }
 
     private void initComps() {
@@ -104,6 +110,46 @@ public class ViewConfiguredCarsFrame extends JFrame {
         gbc.gridy = 2;
         gbc.insets = new Insets(10, 50, 50, 30);
         selectPanel.add(showBtn, gbc);
+    }
+
+    /**
+     * Clicking on showAllBtn calls controller method which gets data about all cars configured by user.
+     */
+    private void viewAllCars(){
+        showAllBtn.addActionListener(e -> {
+            try {
+                controller.showAllCarsOnTxtArea(user, carsTxtArea);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        });
+    }
+
+    /**
+     * Clicking on showBtn calls controller method which gets data about car with id user has written in alfaCodeTxtField and shows data on carsTxtArea.
+     */
+    private void viewCarById(){
+        showBtn.addActionListener(e -> {
+            String carId=alfaCodeField.getText();
+            try {
+                controller.showCarWithIdOnTxtArea(user, carId, carsTxtArea);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        });
+    }
+
+    private void activateNavPanel() {
+        navPanel.getBackToHomepageBtn().addActionListener(e -> {
+            HomeFrame homeFrame = new HomeFrame();
+            homeFrame.setUser(user);
+            controller.setUserNameOnNavPanel(homeFrame.getNavPanel(), user);
+            dispose();
+        });
+        navPanel.getLogOutBtn().addActionListener(e -> {
+            LogInFrame logInFrame = new LogInFrame();
+            dispose();
+        });
     }
 
 }
