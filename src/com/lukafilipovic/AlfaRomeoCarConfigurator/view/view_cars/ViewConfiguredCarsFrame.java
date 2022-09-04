@@ -1,7 +1,7 @@
 package com.lukafilipovic.AlfaRomeoCarConfigurator.view.view_cars;
 
 import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.Controller;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.user.User;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.authentification.LogInFrame;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.common.NavPanel;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.home.HomeFrame;

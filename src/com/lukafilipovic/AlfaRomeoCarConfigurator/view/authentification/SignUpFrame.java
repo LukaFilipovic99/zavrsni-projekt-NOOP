@@ -1,7 +1,7 @@
 package com.lukafilipovic.AlfaRomeoCarConfigurator.view.authentification;
 
 import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.Controller;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.user.User;
 import lombok.Getter;
 import lombok.Setter;
 

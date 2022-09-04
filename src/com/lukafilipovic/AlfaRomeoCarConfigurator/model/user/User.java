@@ -1,4 +1,4 @@
-package com.lukafilipovic.AlfaRomeoCarConfigurator.model.User;
+package com.lukafilipovic.AlfaRomeoCarConfigurator.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

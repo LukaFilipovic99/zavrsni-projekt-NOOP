@@ -1,7 +1,7 @@
 package com.lukafilipovic.AlfaRomeoCarConfigurator.view.configure_car;
 
 import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.Controller;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.user.User;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.CarAbs;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.EngineDecoratedCar;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.GiuliaCar;
@@ -16,8 +16,6 @@ import lombok.Setter;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;

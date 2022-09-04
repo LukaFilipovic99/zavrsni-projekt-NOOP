@@ -1,6 +1,6 @@
-package com.lukafilipovic.AlfaRomeoCarConfigurator.model.Database;
+package com.lukafilipovic.AlfaRomeoCarConfigurator.model.database;
 
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.user.User;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.CarAbs;
 
 import java.sql.*;

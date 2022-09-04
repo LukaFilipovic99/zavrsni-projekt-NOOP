@@ -1,8 +1,8 @@
 com.lukafilipovic.AlfaRomeoCarConfigurator
 com.lukafilipovic.AlfaRomeoCarConfigurator.controller
 com.lukafilipovic.AlfaRomeoCarConfigurator.model.car
-com.lukafilipovic.AlfaRomeoCarConfigurator.model.Database
-com.lukafilipovic.AlfaRomeoCarConfigurator.model.User
+com.lukafilipovic.AlfaRomeoCarConfigurator.model.database
+com.lukafilipovic.AlfaRomeoCarConfigurator.model.user
 com.lukafilipovic.AlfaRomeoCarConfigurator.view.authentification
 com.lukafilipovic.AlfaRomeoCarConfigurator.view.common
 com.lukafilipovic.AlfaRomeoCarConfigurator.view.configure_car

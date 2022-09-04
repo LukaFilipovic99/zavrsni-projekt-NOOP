@@ -1,7 +1,7 @@
 package com.lukafilipovic.AlfaRomeoCarConfigurator.controller;
 
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.Database.Database;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.User.User;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.database.Database;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.user.User;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.*;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.configure_car.EquipmentFrame;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.common.NavPanel;
@@ -20,7 +20,6 @@ import java.util.Random;
 @Setter
 public class Controller {
     private final Database database;
-    private NavPanel navPanel;
     private User user;
     private CarAbs car;
 
