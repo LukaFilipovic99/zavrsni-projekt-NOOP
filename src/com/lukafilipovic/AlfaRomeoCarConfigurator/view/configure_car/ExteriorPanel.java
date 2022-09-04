@@ -114,28 +114,30 @@ public class ExteriorPanel extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.insets = new Insets(50, 10, 0, 10);
+        gbc.insets = new Insets(70, 10, 0, 10);
         add(wheelslbl, gbc);
         gbc.gridx = 1;
-        gbc.insets = new Insets(20, 10, 0, 30);
+        gbc.insets = new Insets(70, 10, 0, 30);
         add(wheelsPriceLbl, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
+        gbc.insets = new Insets(20, 10, 0, 30);
         add(wheelsCBox, gbc);
         gbc.gridx = 1;
         add(wheelsPictureLbl, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
-        gbc.insets = new Insets(50, 10, 0, 10);
+        gbc.insets = new Insets(70, 10, 0, 10);
         add(brakesLbl, gbc);
         gbc.gridx = 1;
-        gbc.insets = new Insets(20, 10, 0, 10);
+        gbc.insets = new Insets(70, 10, 0, 10);
         add(brakesPriceLbl, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 5;
+        gbc.insets = new Insets(20, 10, 0, 30);
         add(brakesCBox, gbc);
         gbc.gridx = 1;
         add(brakesPictureLbl, gbc);
