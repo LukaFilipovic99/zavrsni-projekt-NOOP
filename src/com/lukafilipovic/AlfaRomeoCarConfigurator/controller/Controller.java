@@ -51,7 +51,7 @@ public class Controller {
 
     /**
      * Checks if user with email exists in database. If does not return status code 0 and message. If does checks if email and
-     * password match data in the database and if does loads user data from the database, return status code 1 and shows message about successful log in.
+     * password match data in the database and if does loads user data from the database and return status code 1.
      * If password does not match with email return status code 2 and shows message.
      *
      * @param email
@@ -66,8 +66,6 @@ public class Controller {
             return 0;
         } else if (database.areEmailAndPasswordMatching(email, password)) {
             this.user = database.loadUserFromDB(email, password);
-            JOptionPane.showMessageDialog(
-                    new Frame(), "Prijava uspješna.", "Prijava", JOptionPane.PLAIN_MESSAGE);
             return 1;
         } else {
             JOptionPane.showMessageDialog(

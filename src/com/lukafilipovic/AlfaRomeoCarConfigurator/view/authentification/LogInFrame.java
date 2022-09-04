@@ -96,23 +96,42 @@ public class LogInFrame extends JFrame {
      */
     private void activateFrame() {
         logInBtn.addActionListener(e -> {
-            int status = 0;
             user = new User();
-            if (isValidated()) {
+            JDialog dialog = new JDialog();
+            Runnable runLogIn = () -> {
+                int status = 0;
                 try {
                     status = controller.logIn(emailTxt.getText(), String.valueOf(passwordTxt.getPassword()));
                     user = controller.getUser();
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                dialog.dispose();
+                if (status == 1) {
+                    HomeFrame homeFrame = new HomeFrame();
+                    homeFrame.setUser(user);
+                    controller.setUserNameOnNavPanel(homeFrame.getNavPanel(), user);
+                    dispose();
+                }
+            };
+            Runnable runShowDialog = () -> {
+                JOptionPane optionPane = new JOptionPane("Prijava u tijeku...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+                dialog.setTitle("Prijava");
+                dialog.setModal(true);
+                dialog.setContentPane(optionPane);
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                dialog.setLocation((int) d.getWidth() / 2 - (int) dialog.getPreferredSize().getWidth() / 2 - 7,
+                        (int) d.getHeight() / 2 - (int) dialog.getPreferredSize().getHeight() / 2 - 18);
+                dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                dialog.pack();
+                dialog.setVisible(true);
+            };
+            if (isValidated()) {
+                Thread t1 = new Thread(runLogIn);
+                Thread t2 = new Thread(runShowDialog);
+                t1.start();
+                t2.start();
             }
-            if (status == 1) {
-                HomeFrame homeFrame = new HomeFrame();
-                homeFrame.setUser(user);
-                controller.setUserNameOnNavPanel(homeFrame.getNavPanel(), user);
-                dispose();
-            }
-
         });
         signUpBtn.addActionListener(e -> {
             dispose();

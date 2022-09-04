@@ -141,18 +141,39 @@ public class SignUpFrame extends JFrame {
      */
     private void activatePanel() {
         signUpBtn.addActionListener(e -> {
-            int status = 0;
-            if (isValidated()) {
+            user = new User();
+            JDialog dialog = new JDialog();
+            Runnable runSignUp = () -> {
+                int status = 0;
                 user = createUser();
                 try {
                     status = controller.saveUser(user);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-            }
-            if (status == 1) {
-                dispose();
-                new LogInFrame();
+                dialog.dispose();
+                if (status == 1) {
+                    dispose();
+                    new LogInFrame();
+                }
+            };
+            Runnable runShowDialog = () -> {
+                JOptionPane optionPane = new JOptionPane("Registracija u tijeku...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+                dialog.setTitle("Registracija");
+                dialog.setModal(true);
+                dialog.setContentPane(optionPane);
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                dialog.setLocation((int) d.getWidth() / 2 - (int) dialog.getPreferredSize().getWidth() / 2 - 7,
+                        (int) d.getHeight() / 2 - (int) dialog.getPreferredSize().getHeight() / 2 - 18);
+                dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                dialog.pack();
+                dialog.setVisible(true);
+            };
+            if (isValidated()) {
+                Thread t1 = new Thread(runSignUp);
+                Thread t2 = new Thread(runShowDialog);
+                t1.start();
+                t2.start();
             }
         });
         logInBtn.addActionListener(e -> {
@@ -193,7 +214,7 @@ public class SignUpFrame extends JFrame {
             JOptionPane.showMessageDialog
                     (new Frame(), "Prezime ne smije biti prazno.", "Registracija", JOptionPane.PLAIN_MESSAGE);
             return false;
-        } else if (lastNameTxt.getText().length()>30) {
+        } else if (lastNameTxt.getText().length() > 30) {
             JOptionPane.showMessageDialog
                     (new Frame(), "Prezime smije imati maksimalno 30 znakova.", "Registracija", JOptionPane.PLAIN_MESSAGE);
             return false;

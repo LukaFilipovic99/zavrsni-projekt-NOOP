@@ -172,16 +172,36 @@ public class EquipmentFrame extends JFrame implements ItemListener {
                 additionalEquipmentPrice += additionalEquipmentPanel.getHeadlightWashersPrice();
             }
             additionalEquipmentDecoratedCar = controller.addEquipmentToCar(seatsDecoratedCar, equipmentList, additionalEquipmentPrice);
-            try {
-                String carId = controller.saveCar(user, additionalEquipmentDecoratedCar);
-                FinishConfigurationFrame finishConfigurationFrame = new FinishConfigurationFrame();
-                finishConfigurationFrame.setUser(user);
-                controller.setAlfaCodeToFinishConfigurationFrame(finishConfigurationFrame, carId);
-                controller.setUserNameOnNavPanel(finishConfigurationFrame.getNavPanel(), user);
-                dispose();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            JDialog dialog = new JDialog();
+            Runnable runConfiguration = () -> {
+                try {
+                    String carId = controller.saveCar(user, additionalEquipmentDecoratedCar);
+                    dialog.dispose();
+                    FinishConfigurationFrame finishConfigurationFrame = new FinishConfigurationFrame();
+                    finishConfigurationFrame.setUser(user);
+                    controller.setAlfaCodeToFinishConfigurationFrame(finishConfigurationFrame, carId);
+                    controller.setUserNameOnNavPanel(finishConfigurationFrame.getNavPanel(), user);
+                    dispose();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            };
+            Runnable runShowDialog = () -> {
+                JOptionPane optionPane = new JOptionPane("Vaš automobil se konfigurira...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+                dialog.setTitle("Konfiguracija automobila");
+                dialog.setModal(true);
+                dialog.setContentPane(optionPane);
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                dialog.setLocation((int) d.getWidth() / 2 - (int) dialog.getPreferredSize().getWidth() / 2 - 7,
+                        (int) d.getHeight() / 2 - (int) dialog.getPreferredSize().getHeight() / 2 - 18);
+                dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                dialog.pack();
+                dialog.setVisible(true);
+            };
+            Thread t1 = new Thread(runConfiguration);
+            Thread t2 = new Thread(runShowDialog);
+            t1.start();
+            t2.start();
         });
     }
 
@@ -393,6 +413,7 @@ public class EquipmentFrame extends JFrame implements ItemListener {
         }
         addEquipmentPrice = navPrice + audioPrice + FSDPrice + parkSensorPrice + rainSensorPrice + seatHeatingPrice + cruiseControlPrice + sunroofPrice + headlightWasherPrice;
     }
+
     /**
      * Activate buttons on NavPanel which can log out user (logOutBtn) or send user to the HomeFrame (getBackToHomepageBtn).
      */

@@ -117,11 +117,31 @@ public class ViewConfiguredCarsFrame extends JFrame {
      */
     private void viewAllCars() {
         showAllBtn.addActionListener(e -> {
-            try {
-                controller.showAllCarsOnTxtArea(user, carsTxtArea);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            JDialog dialog = new JDialog();
+            Runnable runViewAllCars = () -> {
+                try {
+                    controller.showAllCarsOnTxtArea(user, carsTxtArea);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                dialog.dispose();
+            };
+            Runnable runShowDialog = () -> {
+                JOptionPane optionPane = new JOptionPane("Podaci o automobilima se učitavaju...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+                dialog.setTitle("Pregled automobila");
+                dialog.setModal(true);
+                dialog.setContentPane(optionPane);
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                dialog.setLocation((int) d.getWidth() / 2 - (int) dialog.getPreferredSize().getWidth() / 2 - 7,
+                        (int) d.getHeight() / 2 - (int) dialog.getPreferredSize().getHeight() / 2 - 18);
+                dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                dialog.pack();
+                dialog.setVisible(true);
+            };
+            Thread t1 = new Thread(runViewAllCars);
+            Thread t2 = new Thread(runShowDialog);
+            t1.start();
+            t2.start();
         });
     }
 
@@ -131,11 +151,31 @@ public class ViewConfiguredCarsFrame extends JFrame {
     private void viewCarById() {
         showBtn.addActionListener(e -> {
             String carId = alfaCodeField.getText();
-            try {
-                controller.showCarWithIdOnTxtArea(user, carId, carsTxtArea);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            JDialog dialog = new JDialog();
+            Runnable runViewCar = () -> {
+                try {
+                    controller.showCarWithIdOnTxtArea(user, carId, carsTxtArea);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                dialog.dispose();
+            };
+            Runnable runShowDialog = () -> {
+                JOptionPane optionPane = new JOptionPane("Podaci o automobilu se učitavaju...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+                dialog.setTitle("Pregled automobila");
+                dialog.setModal(true);
+                dialog.setContentPane(optionPane);
+                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+                dialog.setLocation((int) d.getWidth() / 2 - (int) dialog.getPreferredSize().getWidth() / 2 - 7,
+                        (int) d.getHeight() / 2 - (int) dialog.getPreferredSize().getHeight() / 2 - 18);
+                dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                dialog.pack();
+                dialog.setVisible(true);
+            };
+            Thread t1 = new Thread(runViewCar);
+            Thread t2 = new Thread(runShowDialog);
+            t1.start();
+            t2.start();
         });
     }
 
