@@ -1,11 +1,8 @@
 package com.lukafilipovic.AlfaRomeoCarConfigurator.view.configure_car;
 
 import com.lukafilipovic.AlfaRomeoCarConfigurator.controller.Controller;
+import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.*;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.model.user.User;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.CarAbs;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.EngineDecoratedCar;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.GiuliaCar;
-import com.lukafilipovic.AlfaRomeoCarConfigurator.model.car.StelvioCar;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.authentification.LogInFrame;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.common.NavPanel;
 import com.lukafilipovic.AlfaRomeoCarConfigurator.view.common.PricePanel;
@@ -208,7 +205,7 @@ public class SelectCarModelFrame extends JFrame implements ItemListener {
      */
     private void activateFrame() {
         submitButton.addActionListener(e -> {
-            EngineDecoratedCar engineDecoratedCar;
+            CarDecoratorAbs engineDecoratedCar;
             switch (selectCarModelCBox.getSelectedIndex()) {
                 case 0 -> car = new GiuliaCar();
                 case 1 -> car = new StelvioCar();
@@ -225,7 +222,7 @@ public class SelectCarModelFrame extends JFrame implements ItemListener {
             EquipmentFrame equipmentFrame = new EquipmentFrame();
             equipmentFrame.setPrice(price);
             equipmentFrame.setUser(user);
-            equipmentFrame.setEngineDecoratedCar(engineDecoratedCar);
+            equipmentFrame.setDecoratedCar(engineDecoratedCar);
             controller.setPriceToEquipmentFramePricePanel(equipmentFrame, price);
             controller.setUserNameOnNavPanel(equipmentFrame.getNavPanel(), user);
         });

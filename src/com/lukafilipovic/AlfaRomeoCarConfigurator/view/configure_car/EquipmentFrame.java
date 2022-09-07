@@ -35,7 +35,7 @@ public class EquipmentFrame extends JFrame implements ItemListener {
     private Controller controller;
     private User user;
 
-    private EngineDecoratedCar engineDecoratedCar;
+    private CarDecoratorAbs decoratedCar;
     private List<String> equipmentList = new ArrayList<>();
 
     private double navPrice = 0.0;
@@ -98,41 +98,35 @@ public class EquipmentFrame extends JFrame implements ItemListener {
      */
     private void configureCar() {
         interiorPanel.getSubmitBtn().addActionListener(e -> {
-            ColorDecoratedCar colorDecoratedCar;
-            WheelsDecoratedCar wheelsDecoratedCar;
-            BrakesDecoratedCar brakesDecoratedCar;
-            SeatsDecoratedCar seatsDecoratedCar;
-            AdditionalEquipmentDecoratedCar additionalEquipmentDecoratedCar;
             double additionalEquipmentPrice = 0.0;
-            System.out.println(engineDecoratedCar);
             switch (exteriorPanel.getColorCBox().getSelectedIndex()) {
-                case 0 -> colorDecoratedCar = controller.addColorToCar(engineDecoratedCar, "Bijela - PASTELNA", exteriorPanel.getColors().get("Bijela - PASTELNA"));
-                case 1 -> colorDecoratedCar = controller.addColorToCar(engineDecoratedCar, "Crvena - PASTELNA", exteriorPanel.getColors().get("Crvena - PASTELNA"));
-                case 2 -> colorDecoratedCar = controller.addColorToCar(engineDecoratedCar, "Bijela - BISERNA", exteriorPanel.getColors().get("Bijela - BISERNA"));
-                case 3 -> colorDecoratedCar = controller.addColorToCar(engineDecoratedCar, "Crvena - BISERNA", exteriorPanel.getColors().get("Crvena - BISERNA"));
-                case 4 -> colorDecoratedCar = controller.addColorToCar(engineDecoratedCar, "Siva Silverstone - METALLIC", exteriorPanel.getColors().get("Siva Silverstone - METALLIC"));
-                case 5 -> colorDecoratedCar = controller.addColorToCar(engineDecoratedCar, "Crna Vulcano - METALLIC", exteriorPanel.getColors().get("Crna Vulcano - METALLIC"));
-                case 6 -> colorDecoratedCar = controller.addColorToCar(engineDecoratedCar, "Zelena Racing - METALLIC", exteriorPanel.getColors().get("Zelena Racing - METALLIC"));
-                case 7 -> colorDecoratedCar = controller.addColorToCar(engineDecoratedCar, "Plava Montecarlo - METALLIC", exteriorPanel.getColors().get("Plava Montecarlo - METALLIC"));
-                case 8 -> colorDecoratedCar = controller.addColorToCar(engineDecoratedCar, "Plava Misano - METALLIC", exteriorPanel.getColors().get("Plava Misano - METALLIC"));
+                case 0 -> decoratedCar = controller.addColorToCar(decoratedCar, "Bijela - PASTELNA", exteriorPanel.getColors().get("Bijela - PASTELNA"));
+                case 1 -> decoratedCar = controller.addColorToCar(decoratedCar, "Crvena - PASTELNA", exteriorPanel.getColors().get("Crvena - PASTELNA"));
+                case 2 -> decoratedCar = controller.addColorToCar(decoratedCar, "Bijela - BISERNA", exteriorPanel.getColors().get("Bijela - BISERNA"));
+                case 3 -> decoratedCar = controller.addColorToCar(decoratedCar, "Crvena - BISERNA", exteriorPanel.getColors().get("Crvena - BISERNA"));
+                case 4 -> decoratedCar = controller.addColorToCar(decoratedCar, "Siva Silverstone - METALLIC", exteriorPanel.getColors().get("Siva Silverstone - METALLIC"));
+                case 5 -> decoratedCar = controller.addColorToCar(decoratedCar, "Crna Vulcano - METALLIC", exteriorPanel.getColors().get("Crna Vulcano - METALLIC"));
+                case 6 -> decoratedCar = controller.addColorToCar(decoratedCar, "Zelena Racing - METALLIC", exteriorPanel.getColors().get("Zelena Racing - METALLIC"));
+                case 7 -> decoratedCar = controller.addColorToCar(decoratedCar, "Plava Montecarlo - METALLIC", exteriorPanel.getColors().get("Plava Montecarlo - METALLIC"));
+                case 8 -> decoratedCar = controller.addColorToCar(decoratedCar, "Plava Misano - METALLIC", exteriorPanel.getColors().get("Plava Misano - METALLIC"));
                 default -> throw new IllegalStateException("Unexpected value: " + exteriorPanel.getColorCBox().getSelectedIndex());
             }
             switch (exteriorPanel.getWheelsCBox().getSelectedIndex()) {
-                case 0 -> wheelsDecoratedCar = controller.addWheelsToCar(colorDecoratedCar, "R19 Aluminijski naplatci", exteriorPanel.getWheels().get("R19 Aluminijski naplatci"));
-                case 1 -> wheelsDecoratedCar = controller.addWheelsToCar(colorDecoratedCar, "R18 Aluminijski naplatci (Lusso)", exteriorPanel.getWheels().get("R18 Aluminijski naplatci (Lusso)"));
-                case 2 -> wheelsDecoratedCar = controller.addWheelsToCar(colorDecoratedCar, "R20 Aluminijski naplatci", exteriorPanel.getWheels().get("R20 Aluminijski naplatci"));
+                case 0 -> decoratedCar = controller.addWheelsToCar(decoratedCar, "R19 Aluminijski naplatci", exteriorPanel.getWheels().get("R19 Aluminijski naplatci"));
+                case 1 -> decoratedCar = controller.addWheelsToCar(decoratedCar, "R18 Aluminijski naplatci (Lusso)", exteriorPanel.getWheels().get("R18 Aluminijski naplatci (Lusso)"));
+                case 2 -> decoratedCar = controller.addWheelsToCar(decoratedCar, "R20 Aluminijski naplatci", exteriorPanel.getWheels().get("R20 Aluminijski naplatci"));
                 default -> throw new IllegalStateException("Unexpected value: " + exteriorPanel.getWheelsCBox().getSelectedIndex());
             }
             switch (exteriorPanel.getBrakesCBox().getSelectedIndex()) {
-                case 0 -> brakesDecoratedCar = controller.addBrakesToCar(wheelsDecoratedCar, "Kočiona kliješta - SIVA", exteriorPanel.getBrakes().get("Kočiona kliješta - SIVA"));
-                case 1 -> brakesDecoratedCar = controller.addBrakesToCar(wheelsDecoratedCar, "Kočiona kliješta - CRVENA", exteriorPanel.getBrakes().get("Kočiona kliješta - CRVENA"));
-                case 2 -> brakesDecoratedCar = controller.addBrakesToCar(wheelsDecoratedCar, "Kočiona kliješta - CRNA", exteriorPanel.getBrakes().get("Kočiona kliješta - CRNA"));
-                case 3 -> brakesDecoratedCar = controller.addBrakesToCar(wheelsDecoratedCar, "Kočiona kliješta - ŽUTA", exteriorPanel.getBrakes().get("Kočiona kliješta - ŽUTA"));
+                case 0 -> decoratedCar = controller.addBrakesToCar(decoratedCar, "Kočiona kliješta - SIVA", exteriorPanel.getBrakes().get("Kočiona kliješta - SIVA"));
+                case 1 -> decoratedCar = controller.addBrakesToCar(decoratedCar, "Kočiona kliješta - CRVENA", exteriorPanel.getBrakes().get("Kočiona kliješta - CRVENA"));
+                case 2 -> decoratedCar = controller.addBrakesToCar(decoratedCar, "Kočiona kliješta - CRNA", exteriorPanel.getBrakes().get("Kočiona kliješta - CRNA"));
+                case 3 -> decoratedCar = controller.addBrakesToCar(decoratedCar, "Kočiona kliješta - ŽUTA", exteriorPanel.getBrakes().get("Kočiona kliješta - ŽUTA"));
                 default -> throw new IllegalStateException("Unexpected value: " + exteriorPanel.getBrakesCBox().getSelectedIndex());
             }
             switch (interiorPanel.getSeatsCBox().getSelectedIndex()) {
-                case 0 -> seatsDecoratedCar = controller.addSeatsToCar(brakesDecoratedCar, "Tkanina", interiorPanel.getSeats().get("Tkanina"));
-                case 1 -> seatsDecoratedCar = controller.addSeatsToCar(brakesDecoratedCar, "Koža", interiorPanel.getSeats().get("Koža"));
+                case 0 -> decoratedCar = controller.addSeatsToCar(decoratedCar, "Tkanina", interiorPanel.getSeats().get("Tkanina"));
+                case 1 -> decoratedCar = controller.addSeatsToCar(decoratedCar, "Koža", interiorPanel.getSeats().get("Koža"));
                 default -> throw new IllegalStateException("Unexpected value: " + interiorPanel.getSeatsCBox().getSelectedIndex());
             }
             if (additionalEquipmentPanel.getNavCheckBox().isSelected()) {
@@ -171,11 +165,11 @@ public class EquipmentFrame extends JFrame implements ItemListener {
                 equipmentList.add(additionalEquipmentPanel.getHeadlightWashersCheckBox().getText());
                 additionalEquipmentPrice += additionalEquipmentPanel.getHeadlightWashersPrice();
             }
-            additionalEquipmentDecoratedCar = controller.addEquipmentToCar(seatsDecoratedCar, equipmentList, additionalEquipmentPrice);
+            decoratedCar = controller.addEquipmentToCar(decoratedCar, equipmentList, additionalEquipmentPrice);
             JDialog dialog = new JDialog();
             Runnable runConfiguration = () -> {
                 try {
-                    String carId = controller.saveCar(user, additionalEquipmentDecoratedCar);
+                    String carId = controller.saveCar(user, decoratedCar);
                     dialog.dispose();
                     FinishConfigurationFrame finishConfigurationFrame = new FinishConfigurationFrame();
                     finishConfigurationFrame.setUser(user);
